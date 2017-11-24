@@ -2,68 +2,28 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
+import Header from './components/header.js';
+import Leftwing from './components/leftwing.js';
+import Middlewing from './components/middlewing.js';
+import Rightwing from './components/rightwing.js';
+
 class App extends Component {
   render() {
     return (
 <div className="container">
 
-<div class="row">
-
-<div class="col-md-12 text-center">
-<h1>OTSIKKO</h1>
-</div>
-
-</div>
+<Header/>
 
 <div class="row">
 
-<div class="col-md-3">
-<ul>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-</ul>
-</div>
+<Leftwing/>
 
-<div class="col-md-6">
-<img src="http://www.joshuacasper.com/contents/uploads/joshua-casper-samples-free.jpg"/>
-</div>
+<Middlewing/>
 
-<div class="col-md-3">
-<ul>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-<li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-  <li>Lista asia</li>
-</ul>
+<Rightwing/>
 
-</div>
-</div>
+  </div>
+
 </div>
     );
   }
