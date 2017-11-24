@@ -4,7 +4,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
 import Leftwing from './components/leftwing.js';
-import Middlewing from './components/middlewing.js';
+import Middleview from './components/middle-view.js';
 import Rightwing from './components/rightwing.js';
 
 class App extends Component {
@@ -18,7 +18,7 @@ class App extends Component {
 
 <Leftwing/>
 
-<Middlewing/>
+<Middleview/>
 
 <Rightwing/>
 
