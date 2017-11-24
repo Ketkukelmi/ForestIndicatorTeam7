@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-class rightwing extends Component {
+class rightview extends Component {
     render () {
         return (
 <div class="col-md-3">
@@ -27,4 +27,4 @@ class rightwing extends Component {
     }
 }
 
-export default rightwing
+export default rightview

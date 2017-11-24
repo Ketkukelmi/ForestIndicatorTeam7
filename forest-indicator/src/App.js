@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
-import Leftwing from './components/leftwing.js';
+import Leftview from './components/left-view.js';
 import Middleview from './components/middle-view.js';
-import Rightwing from './components/rightwing.js';
+import Rightview from './components/right-view.js';
 
 class App extends Component {
   render() {
@@ -16,11 +15,11 @@ class App extends Component {
 
 <div class="row">
 
-<Leftwing/>
+<Leftview/>
 
 <Middleview/>
 
-<Rightwing/>
+<Rightview/>
 
   </div>
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import testimg from './test.png';
 
-class middle-view extends Component {
+class middleview extends Component {
     render () {
         return (
     <div className="col-md-6">
@@ -54,4 +54,4 @@ class middle-view extends Component {
     }
 }
 
-export default middle-view
+export default middleview
