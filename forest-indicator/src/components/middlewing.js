@@ -5,30 +5,44 @@ import testimg from './test.png';
 class middlewing extends Component {
     render () {
         return (
-    <div class="col-md-6">
+    <div className="col-md-6">
         <h2 className="text-center">Alue</h2>
 
-    <figure className="text-center" >
-        <h4>Skenaario</h4>
-        <img src={testimg} alt="logo" /> 
-        <figcaption >Lähde</figcaption>
-        <br/>
-    </figure>
+<div className="row">
 
-    <figure className="text-center" >
+<div className="col-md-6">
+    <figure className="text-left" >
         <h4>Skenaario</h4>
         <img src={testimg} alt="logo" /> 
         <figcaption >Lähde</figcaption>
         <br/>
     </figure>
-
-    <figure className="text-center" >
+</div>
+<div className="col-md-6">
+<figure className="text-left" >
+    <h4>Skenaario</h4>
+    <img src={testimg} alt="logo" /> 
+    <figcaption >Lähde</figcaption>
+    <br/>
+</figure>
+</div>
+<div className="col-md-6">
+    <figure className="text-left" >
         <h4>Skenaario</h4>
         <img src={testimg} alt="logo" /> 
         <figcaption >Lähde</figcaption>
         <br/>
     </figure>
-     
+</div>
+<div className="col-md-6">
+    <figure className="text-left" >
+        <h4>Skenaario</h4>
+        <img src={testimg} alt="logo" /> 
+        <figcaption >Lähde</figcaption>
+        <br/>
+    </figure>
+</div>
+</div>    
         <br/>
         <button type="button" className="btn btn-primary">Kaavio 1</button>   
         <button type="button" className="btn btn-primary">Kaavio 2</button>   
