@@ -3,9 +3,9 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
-import Leftwing from './components/leftwing.js';
-import Middlewing from './components/middlewing.js';
-import Rightwing from './components/rightwing.js';
+import Leftview from './components/leftwing.js';
+import Middleview from './components/middlewing.js';
+import Rightview from './components/rightwing.js';
 
 class App extends Component {
   render() {
@@ -16,11 +16,11 @@ class App extends Component {
 
 <div class="row">
 
-<Leftwing/>
+<Leftview/>
 
-<Middlewing/>
+<Middleview/>
 
-<Rightwing/>
+<Rightview/>
 
   </div>
 
