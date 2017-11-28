@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
-import Leftview from './components/leftview.js';
+import LeftView from './components/LeftView.js';
 import Middleview from './components/middleview.js';
 import Rightview from './components/rightview.js';
 
