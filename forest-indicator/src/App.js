@@ -4,8 +4,8 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
 import LeftView from './components/LeftView.js';
-import Middlewing from './components/middlewing.js';
-import Rightwing from './components/rightwing.js';
+import Middleview from './components/middleview.js';
+import Rightview from './components/rightview.js';
 
 class App extends Component {
   render() {
@@ -16,11 +16,11 @@ class App extends Component {
 
 <div class="row">
 
-<Leftwing/>
+<Leftview/>
 
-<Middlewing/>
+<Middleview/>
 
-<Rightwing/>
+<Rightview/>
 
   </div>
 
