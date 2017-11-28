@@ -16,7 +16,7 @@ class App extends Component {
 
 <div className="row">
 
-<Leftview/>
+<LeftView/>
 
 <Middleview/>
 
