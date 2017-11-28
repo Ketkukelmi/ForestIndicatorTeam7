@@ -1,30 +1,31 @@
 import React, { Component } from 'react'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import SimpleDropDown from './SimpleDropDown.js';
 
-class leftwing extends Component {
-  state = {
-    selectedOption: '',
-  }
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(`Selected: ${selectedOption.label}`);
-  }
+class LeftView extends Component {
+
   render() {
+    let regionLevels = [
+      { value: 'maakunta', label: 'Maakunnat' },
+      { value: 'epohjanmaa', label: 'Etelä-Pohjanmaa' },
+      { value: 'three', label: 'Alue 3' },
+      { value: 'four', label: 'Alue 4' },
+    ]
+    let regions = [
+      { value: 'ppohjanmaa', label: 'Pohjois-Pohjanmaa' },
+      { value: 'epohjanmaa', label: 'Etelä-Pohjanmaa' },
+      { value: 'three', label: 'Alue 3' },
+      { value: 'four', label: 'Alue 4' },
+    ]
     return (
       <div class="col-md-3">
-        <Select
-          name="form-field-name"
-          value={this.state.value}
-          onChange={this.handleChange}
-          options={[
-            { value: 'one', label: 'Pohjois-Pohjanmaa' },
-            { value: 'two', label: 'Etelä-Pohjanmaa' },
-          ]}
-        />
+        <h4>Skenaarioiden valinta</h4>
+        <SimpleDropDown options={regionLevels} title="Aluetaso"/>
+        <SimpleDropDown options={regions} title="Alue"/>
       </div>
     )
   }
 }
 
-export default leftwing
+export default LeftView
