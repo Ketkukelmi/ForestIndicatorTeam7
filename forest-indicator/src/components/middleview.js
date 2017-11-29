@@ -205,7 +205,8 @@ Highcharts.chart('test', {
         <button type="button" className="btn btn-primary"
         onClick = {this.test3} >Taulukko</button>   
         <button type="button" className="btn btn-primary pull-right">Lataa</button>   
-        <button type="button" className="btn btn-primary pull-right">Printtaa</button>   
+        <button type="button" className="btn btn-primary pull-right"
+        onClick = {() => window.print()}>Printtaa</button>   
         </div>
         )
     }

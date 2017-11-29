@@ -54,6 +54,7 @@ class LeftView extends Component {
         <MultipleSelector choices = {scenarios} title="Skenaariot" />
         <br></br>
         <MultipleSelector choices = {times} title="Ajankohta" />
+        
       </div>
     )
   }
