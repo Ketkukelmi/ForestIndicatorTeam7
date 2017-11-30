@@ -67,7 +67,7 @@ constructor(props){
             <br></br>
             <button type="button" className="btn btn-success"
             onClick={this.onbuttonclicked}>Palaute</button>   
-            <br></br>
+            
             {this.state.showComponent && <FeedbackPopup />}
             </div>
         )
