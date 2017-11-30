@@ -30,6 +30,11 @@ class FeedbackPopup extends Component {
         )
         PopupboxManager.open({ content })
     }
+    sendEmail(){
+        this.state.inputEmail,
+        this.state.inputSubject,
+        this.state.inputMsg
+    }
 
     render () {
         const popupboxConfig = {
@@ -63,7 +68,8 @@ class FeedbackPopup extends Component {
                     name="inputMsg"
                     value={ this.state.inputMsg }
                     onChange={ this.inputChange }></textarea>
-                <button type = "button" className = "btn btn-success">Lähetä</button>
+                <button type = "button" className = "btn btn-success"
+                onClick={this.sendEmail}>Lähetä</button>
             </div>
         )
     }
