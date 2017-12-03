@@ -8,23 +8,7 @@ import GlobalMethods from '../data/GlobalMethods.js'
 class LeftView extends Component {
 
   render() {
-    /* Dummy Data */
-    let data = '[{"name": "Maakunnat", "description": "Maakunnat v2017 vallitsevan maakuntajaon mukaisesti","id": 1,"order": 1},{"name": "Metsäkeskukset","description": "Metsäkeskukset v2015 vallitsevan metsäkeskusjaon mukaisesti","id": 2,"order": 2}]'
 
-    let regionsData ='[{ "name": "Pohjois-Pohjanmaa" },{ "name": "Etelä-Pohjanmaa" }]'
-
-    let regions = [
-      { value: 'ppohjanmaa', label: 'Pohjois-Pohjanmaa' },
-      { value: 'epohjanmaa', label: 'Etelä-Pohjanmaa' },
-      { value: 'three', label: 'Alue 3' },
-      { value: 'four', label: 'Alue 4' },
-    ]
-    let scenarioLibrary = [
-      { value: 'firstInvention', label: 'Valtakunnan metsien 1.1 inventointi' },
-      { value: 'epohjanmaa', label: 'Etelä-Pohjanmaa' },
-      { value: 'three', label: 'Alue 3' },
-      { value: 'four', label: 'Alue 4' },
-    ]
     let times = [
       { value: '2021', label: '2021(-2025)'},
       { value: '2026', label: '2026(-2030)'},
@@ -42,18 +26,19 @@ class LeftView extends Component {
         {value: 'BadWood', label: "Lahopuu"},
         {value: 'Coal', label: "Hiilinielu"},
     ]
+
     return (
       <div class="col-md-3">
         <h4>Skenaarioiden valinta</h4>
-        <SimpleDropDown options={GlobalMethods.parseNameAndValue(data)} title="Aluetaso"/>
+        <SimpleDropDown options={GlobalMethods.createOptions(GlobalMethods.getRegionLevels())} title="Aluetaso" updateValue={this.updateValue}/>
         <br></br>
-        <SimpleDropDown options={GlobalMethods.parseNameAndValue(regionsData)} title="Alue"/>
+        <SimpleDropDown options={GlobalMethods.createOptions(GlobalMethods.getRegions())} title="Alue"/>
         <br></br>
-        <SimpleDropDown options={scenarioLibrary} title="Skenaariokokoelma"/>
+        <SimpleDropDown options={GlobalMethods.createOptions(GlobalMethods.getScenarioCollection(24))} title="Skenaariokokoelma"/>
         <br></br>
-        <MultipleSelector choices = {scenarios} title="Skenaariot" />
+        <MultipleSelector choices = {GlobalMethods.createDescriptionAsNameOptions(GlobalMethods.getScenarios())} title="Skenaariot" />
         <br></br>
-        <MultipleSelector choices = {times} title="Ajankohta" />
+        <MultipleSelector choices = {GlobalMethods.createTimeOptions(GlobalMethods.getTimePeriods())} title="Ajankohta" />
       </div>
     )
   }
