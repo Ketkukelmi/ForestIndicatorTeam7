@@ -97,7 +97,6 @@ class LeftView extends Component {
 
   render() {
 
-
     return (
       <div class="col-md-3">
         <h4>Skenaarioiden valinta</h4>
