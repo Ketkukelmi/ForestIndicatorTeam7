@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Region",
+    "description": "Regions of Finland as on 1.1.2017",
+    "id": 1,
+    "order": 1
+  },
+  {
+    "name": "Forestry Centers",
+    "description": "Forestry Centers of Finland as on 1.1.2015",
+    "id": 2,
+    "order": 2
+  }
+]
