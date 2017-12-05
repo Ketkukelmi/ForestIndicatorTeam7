@@ -2,12 +2,25 @@ import React, { Component } from 'react'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import MultipleSelector from './MultipleSelector';
-
+import GlobalMethods from '../data/GlobalMethods.js'
+import FeedbackPopup from './FeedbackPopup.js';
 
 
 class rightwing extends Component {
-
-    
+constructor(props){
+    super(props);
+    this.state = {
+        showComponent : false,
+    };
+    this.onbuttonclicked = this.onbuttonclicked.bind(this);
+}
+    onbuttonclicked(){
+        
+        this.setState({
+            showComponent: !this.state.showComponent
+        
+        });
+    }
 
     render () {
 
@@ -42,15 +55,21 @@ class rightwing extends Component {
         
         return (
             <div class="col-md-3">
-            <MultipleSelector choices = {choices} title = {title} />
+            <MultipleSelector choices = {GlobalMethods.createOptions(GlobalMethods.getIndicators(1))} title = {title} />
             <br></br>
-            <MultipleSelector choices = {gatherings} title = {title1} />
+            <MultipleSelector choices = {GlobalMethods.createOptions(GlobalMethods.getIndicators(2))} title = {title1} />
             <br></br>
-            <MultipleSelector choices = {diversity} title = {title2} />
+            <MultipleSelector choices = {GlobalMethods.createOptions(GlobalMethods.getIndicators(3))} title = {title2} />
             <br></br>
-            <MultipleSelector choices = {coal} title = {title3} />
+            <MultipleSelector choices = {GlobalMethods.createOptions(GlobalMethods.getIndicators(4))} title = {title3} />
             <br></br>
-            <MultipleSelector choices = {rest} title = {title4} />
+            <MultipleSelector choices = {GlobalMethods.createOptions(GlobalMethods.getIndicators(5))} title = {title4} />
+
+            <br></br>
+            <button type="button" className="btn btn-success"
+            onClick={this.onbuttonclicked}>Palaute</button>   
+            
+            {this.state.showComponent && <FeedbackPopup />}
             </div>
         )
     }

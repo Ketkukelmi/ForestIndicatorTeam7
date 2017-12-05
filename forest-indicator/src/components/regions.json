@@ -1,0 +1,65 @@
+[
+  {
+    "id": 24,
+    "name": "Kainuu",
+    "shortName": "Ka",
+    "order": 5,
+    "scenarioCollections": [
+      {
+        "id": 6,
+        "name": "AMO18",
+        "description": "AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."
+      },
+      {
+        "id": 5,
+        "name": "NFI11 (2009-2013)",
+        "description": "Results for Finnish regions basing on the  11th NFI (field measurements in 2009-2013) . Published  18.03.2017."
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "name": "Lapland",
+    "shortName": "La",
+    "order": 10,
+    "scenarioCollections": [
+      {
+        "id": 6,
+        "name": "AMO18",
+        "description": "AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."
+      },
+      {
+        "id": 5,
+        "name": "NFI11 (2009-2013)",
+        "description": "Results for Finnish regions basing on the  11th NFI (field measurements in 2009-2013) . Published  18.03.2017."
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "name": "North Karelia",
+    "shortName": "NK",
+    "order": 13,
+    "scenarioCollections": [
+      {
+        "id": 6,
+        "name": "AMO18",
+        "description": "AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "name": "Northern Ostrobothnia",
+    "shortName": "NO",
+    "order": 14,
+    "scenarioCollections": [
+      {
+        "id": 6,
+        "name": "AMO18",
+        "description": "AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."
+      }
+    ]
+  }
+]
+
