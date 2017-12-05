@@ -7,20 +7,12 @@ class SimpleDropDown extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      selectedOption: '',
       label: 'Alueet:',
       searchable: true,
       clearable: true,
     }
-
-    this.updateValue = this.updateValue.bind(this);
   }
-
-  updateValue(newValue) {
-    this.setState({
-      selectValue: newValue,
-    });
-  }
+  
 
   render () {
 
@@ -35,8 +27,8 @@ class SimpleDropDown extends Component {
           clearable={this.state.clearable}
           name="selected-area"
           placeholder="Valitse..."
-          value={this.state.selectValue}
-          onChange={this.updateValue}
+          value={this.props.selectValue}
+          onChange={this.props.updateValue}
           openOnClick={false}
           searchable={this.state.searchable}
         />
