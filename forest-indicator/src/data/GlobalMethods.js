@@ -6,28 +6,38 @@ const scenariosAndTimeTables = [{"id":5,"name":"NFI11 (2009-2013)","description"
 const regionsData =[{"id":24,"name":"Kainuu","shortName":"Ka","order":5,"scenarioCollections":[{"id":6,"name":"AMO18","description":"AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."},{"id":5,"name":"NFI11 (2009-2013)","description":"Results for Finnish regions basing on the  11th NFI (field measurements in 2009-2013) . Published  18.03.2017."}]},{"id":29,"name":"Lapland","shortName":"La","order":10,"scenarioCollections":[{"id":6,"name":"AMO18","description":"AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."},{"id":5,"name":"NFI11 (2009-2013)","description":"Results for Finnish regions basing on the  11th NFI (field measurements in 2009-2013) . Published  18.03.2017."}]},{"id":32,"name":"North Karelia","shortName":"NK","order":13,"scenarioCollections":[{"id":6,"name":"AMO18","description":"AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."}]},{"id":33,"name":"Northern Ostrobothnia","shortName":"NO","order":14,"scenarioCollections":[{"id":6,"name":"AMO18","description":"AMO results basing on the  11th NFI (field measurements in 2009-2013) . Published  04.03.2018."}]}]          
 
 function getRegionLevels() {
-  const regionArray = data.map(element => {
-    return {
-      id: element.id,
-      name: element.name,
-      description: element.description,
-      order:  element.order
-    }
-  })
-  return regionArray;
-}
-
-function getRegions() {
-  const regionArray = regionsData.map(element => {
+  if(typeof regionArray != "undefined") {
+    const regionArray = data.map(element => {
       return {
         id: element.id,
         name: element.name,
-        shortName: element.shortName,
-        order: element.order,
-        scenarioCollections: element.scenarioCollections
+        description: element.description,
+        order:  element.order
       }
-  })
-  return regionArray;
+    })
+    return regionArray;
+  } else {
+    const regionArray = []
+    return regionArray;
+  }
+}
+
+function getRegions() {
+  if(typeof regionsData != "undefined") {
+    const regionArray = regionsData.map(element => {
+        return {
+          id: element.id,
+          name: element.name,
+          shortName: element.shortName,
+          order: element.order,
+          scenarioCollections: element.scenarioCollections
+        }
+    })
+    return regionArray;
+  } else {
+    const regionArray = []
+    return regionArray;
+  }
 }
 
 function getScenarioCollection(id) {
