@@ -39,13 +39,13 @@ class MultipleSelector extends Component {
             <Select
 					closeOnSelect={!stayOpen}
 					multi
-                    onChange={this.handleSelectChange}
+                    onChange={this.props.updateValue}
                     options={this.props.choices}
 					placeholder="Valitse yksi tai useampi vaihtoehto"
                     removeSelected={this.state.removeSelected}
 					rtl={this.state.rtl}
 					simpleValue
-					value={value}
+					value={this.props.selectValue}
 				/>
         
             </div>
