@@ -44,7 +44,7 @@
   height: 100%; 
 }
 .coolheader { 
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Open Sans', 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   color: rgba(46, 85, 45, 0.973);
   text-decoration: none;
   text-transform: uppercase;

@@ -5,6 +5,7 @@ import MultipleSelector from './MultipleSelector';
 import GlobalMethods from '../data/GlobalMethods.js'
 import FeedbackPopup from './FeedbackPopup.js';
 import Data from '../data/Data.js'
+import localizedStrings from '../data/Localization.js'
 import '../App.css';
 
 class rightwing extends Component {
@@ -33,6 +34,7 @@ class rightwing extends Component {
         this.updateNaturalProductsValue = this.updateNaturalProductsValue.bind(this);
         this.updateOthersValue = this.updateOthersValue.bind(this);
         this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);
+        this.toggleLanguage = this.toggleLanguage.bind(this);
     }
 
     updateWoodProductionValue(newValue){
@@ -40,6 +42,14 @@ class rightwing extends Component {
             woodProductionValue: newValue,
         });
         console.log("newValue: " + newValue + " woodProductionValue: " + this.state.woodProductionValue)
+    }
+
+    toggleLanguage() {
+        if (localizedStrings.getLanguage() == "fi") {
+          localizedStrings.setLanguage("en");
+        } else {
+          localizedStrings.setLanguage("fi");
+        }
     }
 
     updateBiodiversityValue(newValue){
@@ -81,49 +91,55 @@ class rightwing extends Component {
 
     render() {
 
-        const title = "Puutuotanto";
-        const title1 = "Keruutuotteet";
-        const title2 = "Monimuotoisuus";
-        const title3 = "Hiilen määrä";
-        const title4 = "Biomassa";
-
+        /*const title = strings.woodProduction;
+        const title1 = strings.naturalProducts;
+        const title2 = strings.diversity;
+        const title3 = strings.coal;
+        const title4 = strings.rest;*/
+        localizedStrings.setLanguage("fi");
         return (
+            <div>
             <div class="col-md-3 greenBox">
                 <MultipleSelector 
                     choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(1, this.state.indicatorCategoriesData))} 
-                    title={title}
+                    title={localizedStrings.woodProduction}
                     updateValue={this.updateWoodProductionValue} 
                     selectValue={this.state.woodProductionValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(2, this.state.indicatorCategoriesData))} 
-                    title={title1} 
+                    title={localizedStrings.naturalProducts} 
                     updateValue={this.updateBiodiversityValue} 
                     selectValue={this.state.biodiversityValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(3, this.state.indicatorCategoriesData))} 
-                    title={title2}                    
+                    title={localizedStrings.diversity}                    
                     updateValue={this.updateNaturalProductsValue} 
                     selectValue={this.state.naturalProductsValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(4, this.state.indicatorCategoriesData))} 
-                    title={title3}          
+                    title={localizedStrings.coal}          
                     updateValue={this.updateCarbonValue} 
                     selectValue={this.state.carbonValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(5, this.state.indicatorCategoriesData))} 
-                    title={title4}          
+                    title={localizedStrings.rest}          
                     updateValue={this.updateOthersValue} 
                     selectValue={this.state.othersValue} />
 
                 <br></br>
-                <button type="button" className="btn btn-success"
+                <button type="button" className="btn btn-primary"
                     onClick={this.onbuttonclicked}>Palaute</button>
 
                 {this.state.showComponent && <FeedbackPopup />}
+
+                
+            </div>
+            
+            <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }Fi/En</button>
             </div>
         )
     }
