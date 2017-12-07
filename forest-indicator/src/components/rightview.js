@@ -11,63 +11,10 @@ class rightwing extends Component {
         super(props);
         this.state = {
             showComponent: false,
-            indicatorCategoriesData: [],
-            woodProductionValue: [],
-            biodiversityValue: [],
-            naturalProductsValue: [],
-            carbonValue: [],
-            othersValue: [],
         };
         this.onbuttonclicked = this.onbuttonclicked.bind(this);
-
-        Data.getScenarioCollection(6, 24).then(result => {
-            this.setState({
-                indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
-            })
-            console.log(this.state.indicatorCategoriesData);
-        })
-
-        this.updateBiodiversityValue = this.updateBiodiversityValue.bind(this);
-        this.updateCarbonValue = this.updateCarbonValue.bind(this);
-        this.updateNaturalProductsValue = this.updateNaturalProductsValue.bind(this);
-        this.updateOthersValue = this.updateOthersValue.bind(this);
-        this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);
     }
 
-    updateWoodProductionValue(newValue){
-        this.setState({
-            woodProductionValue: newValue,
-        });
-        console.log("newValue: " + newValue + " woodProductionValue: " + this.state.woodProductionValue)
-    }
-
-    updateBiodiversityValue(newValue){
-        this.setState({
-            biodiversityValue: newValue,
-        });
-        console.log("newValue: " + newValue + " biodiversityValue: " + this.state.biodiversityValue)
-    }
-
-    updateNaturalProductsValue(newValue){
-        this.setState({
-            naturalProductsValue: newValue,
-        });
-        console.log("newValue: " + newValue + " naturalProductsValue: " + this.state.naturalProductsValue)
-    }
-
-    updateCarbonValue(newValue){
-        this.setState({
-            carbonValue: newValue,
-        });
-        console.log("newValue: " + newValue + " carbonValue: " + this.state.carbonValue)
-    }
-
-    updateOthersValue(newValue){
-        this.setState({
-            othersValue: newValue,
-        });
-        console.log("newValue: " + newValue + " othersValue: " + this.state.othersValue)
-    }
     
     onbuttonclicked() {
 
@@ -80,43 +27,43 @@ class rightwing extends Component {
 
     render() {
 
-        const title = "Puutuotanto";
-        const title1 = "Keruutuotteet";
-        const title2 = "Monimuotoisuus";
-        const title3 = "Hiilen määrä";
-        const title4 = "Biomassa";
+        const title = "Puuntuotanto";
+        const title1 = "Monimuotoisuus";
+        const title2 = "Keruutuotteet";
+        const title3 = "Hiili";
+        const title4 = "Muut";
 
         return (
             <div class="col-md-3">
                 <MultipleSelector 
-                    choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(1, this.state.indicatorCategoriesData))} 
+                    choices={this.props.woodProductionData} 
                     title={title}
-                    updateValue={this.updateWoodProductionValue} 
-                    selectValue={this.state.woodProductionValue}/>
+                    updateValue={this.props.updateWoodProductionValue} 
+                    selectValue={this.props.woodProductionValue}/>
                 <br></br>
                 <MultipleSelector 
-                    choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(2, this.state.indicatorCategoriesData))} 
+                    choices={this.props.biodiversityData} 
                     title={title1} 
-                    updateValue={this.updateBiodiversityValue} 
-                    selectValue={this.state.biodiversityValue}/>
+                    updateValue={this.props.updateBiodiversityValue} 
+                    selectValue={this.props.biodiversityValue}/>
                 <br></br>
                 <MultipleSelector 
-                    choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(3, this.state.indicatorCategoriesData))} 
+                    choices={this.props.naturalProductsData} 
                     title={title2}                    
-                    updateValue={this.updateNaturalProductsValue} 
-                    selectValue={this.state.naturalProductsValue}/>
+                    updateValue={this.props.updateNaturalProductsValue} 
+                    selectValue={this.props.naturalProductsValue}/>
                 <br></br>
                 <MultipleSelector 
-                    choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(4, this.state.indicatorCategoriesData))} 
+                    choices={this.props.carbonData} 
                     title={title3}          
-                    updateValue={this.updateCarbonValue} 
-                    selectValue={this.state.carbonValue}/>
+                    updateValue={this.props.updateCarbonValue} 
+                    selectValue={this.props.carbonValue}/>
                 <br></br>
                 <MultipleSelector 
-                    choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(5, this.state.indicatorCategoriesData))} 
+                    choices={this.props.othersData} 
                     title={title4}          
-                    updateValue={this.updateOthersValue} 
-                    selectValue={this.state.othersValue} />
+                    updateValue={this.props.updateOthersValue} 
+                    selectValue={this.props.othersValue} />
 
                 <br></br>
                 <button type="button" className="btn btn-success"
