@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import '../App.css';
 
 class header extends Component {
     render () {
@@ -6,7 +7,7 @@ class header extends Component {
 <div className="row">
 
 <div className="col-md-12 text-center">
-<h1>OTSIKKO</h1>
+<h1 className="coolheader">Forest indicator</h1>
 </div>
 
 </div>
