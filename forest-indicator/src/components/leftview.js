@@ -22,7 +22,8 @@ class LeftView extends Component {
       regionsData : [],
       scenarioCollectionData: [],
       scenariosData: [],
-      timePeriodData: []   
+      timePeriodData: [],
+      indicatorCategoriesData:[]  
     }
     this.updateRegionLevelValue = this.updateRegionLevelValue.bind(this);
     this.updateRegionValue = this.updateRegionValue.bind(this);
@@ -71,28 +72,30 @@ class LeftView extends Component {
     this.setState({
       scenarioCollectionValue: newValue,
     });
-    debugger;
     Data.getScenarioCollection(newValue, this.state.regionValue).then(result => {
       this.setState({
         scenariosData: GlobalMethods.createDescriptionAsNameOptions(GlobalMethods.getScenarios(result)),
-        timePeriodData: GlobalMethods.createTimeOptions(GlobalMethods.getTimePeriods(result))
+        timePeriodData: GlobalMethods.createTimeOptions(GlobalMethods.getTimePeriods(result)),
+        indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
       })
       console.log(this.state.scenariosData);
     })
   }
 
   updateScenarioValue(newValue) {
-    console.log(newValue+"")    
+    console.log("New Value:  " +newValue)        
     this.setState({
       scenarioValue: newValue,
     });
+    console.log("Value: " + this.state.scenarioValue)     
   }
 
   updateTimePeriodValue(newValue) {
-    console.log(newValue+"")    
+    console.log("New Value:  " +newValue)    
     this.setState({
       timePeriodValue: newValue,
     });
+    console.log("Value: " + this.state.timePeriodValue)     
   }
 
   render() {
