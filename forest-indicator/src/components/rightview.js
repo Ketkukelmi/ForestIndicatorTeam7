@@ -5,6 +5,7 @@ import MultipleSelector from './MultipleSelector';
 import GlobalMethods from '../data/GlobalMethods.js'
 import FeedbackPopup from './FeedbackPopup.js';
 import Data from '../data/Data.js'
+import '../App.css';
 
 class rightwing extends Component {
     constructor(props) {
@@ -87,7 +88,7 @@ class rightwing extends Component {
         const title4 = "Biomassa";
 
         return (
-            <div class="col-md-3">
+            <div class="col-md-3 greenBox">
                 <MultipleSelector 
                     choices={GlobalMethods.createOptions(GlobalMethods.getIndicators(1, this.state.indicatorCategoriesData))} 
                     title={title}

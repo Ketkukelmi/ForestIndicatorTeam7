@@ -5,6 +5,7 @@ import Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/js/highcharts-more.js';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import Export from 'highcharts/modules/exporting.js';
+import '../App.css';
 HighchartsMore(Highcharts)        
 Heatmap(Highcharts)
 Export(Highcharts)
@@ -279,7 +280,9 @@ class middleview extends Component {
                 });
 
         return (
+    
     <div className="col-md-6">
+    <div className="lightgreenBox">
         <h2 className="text-center">Alue</h2>
 
 <div className="row">
@@ -300,6 +303,7 @@ class middleview extends Component {
         <button type="button" className="btn btn-primary"
         onClick = {this.test3} >Taulukko</button>    
 
+        </div>
         </div>
         )
     }

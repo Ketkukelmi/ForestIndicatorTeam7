@@ -5,6 +5,7 @@ import SimpleDropDown from './SimpleDropDown.js';
 import MultipleSelector from './MultipleSelector.js';
 import GlobalMethods from '../data/GlobalMethods.js'
 import Data from '../data/Data'
+import '../App.css';
 
 class LeftView extends Component {
 
@@ -101,7 +102,7 @@ class LeftView extends Component {
   render() {
 
     return (
-      <div class="col-md-3">
+      <div class="col-md-3 greenBox">
         <h4>Skenaarioiden valinta</h4>
         <SimpleDropDown 
           options={this.state.regionLevelData} 
