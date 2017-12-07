@@ -9,6 +9,10 @@ import Rightview from './components/rightview.js';
 
 class App extends Component {
   render() {
+
+
+    
+
     return (
       <div className="container">
 
