@@ -10,21 +10,21 @@ import Rightview from './components/rightview.js';
 class App extends Component {
   render() {
     return (
-<div className="container">
+      <div className="container">
 
-<Header/>
+        <Header />
 
-<div className="row">
+        <div className="row">
 
-<LeftView/>
+          <LeftView />
 
-<Middleview/>
+          <Middleview />
 
-<Rightview/>
+          <Rightview />
 
-  </div>
+        </div>
 
-</div>
+      </div>
     );
   }
 }

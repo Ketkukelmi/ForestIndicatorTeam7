@@ -1,53 +1,222 @@
 import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
-import testimg from './test.png';
 import axios from 'axios';
 import Highcharts from 'highcharts';
-import $ from 'jquery';
-import ReactTable from 'react-table';
-import Cors from 'cors-anywhere';
+import HighchartsMore from 'highcharts/js/highcharts-more.js';
+import Heatmap from 'highcharts/modules/heatmap.js';
+import Export from 'highcharts/modules/exporting.js';
+HighchartsMore(Highcharts)        
+Heatmap(Highcharts)
+Export(Highcharts)
 class middleview extends Component {
-     
-    
+         
     test= () => {
-        console.log("ola");
-        Highcharts.chart('test', {
+        
+        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        axios.get( testUrl)
+        
+        .then(function (response) {
+
+            var catename = [];
+            for (var count = 0; count < response.data[0].indicatorCategories.length; count++) { 
+                if (count % 3 === 2) {
+                    console.log(count);
+                }
+                catename.push(response.data[0].indicatorCategories[count].name);
+                console.log(catename);
+            }
+            var chartdata = [];
+            
+            var seriesname = [];
+            for (var count = 0; count < response.data[0].scenarios.length; count++) { 
+                if (count % 3 === 2) {
+                    console.log(count);
+                }
+                seriesname.push(response.data[0].scenarios[count].description);
+                console.log(seriesname);
+            }
+
+            for (var count = 0; count < response.data[0].values.length; count++) { 
+                
+                chartdata.push(response.data[0].values[count].value);
+            }
+          Highcharts.chart('test', {
             chart: {
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: response.data[0].description
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24'
             },
             xAxis: {
-                categories: [
-                    'Jan',
-                    'Feb',
-                    'Mar',
-                    'Apr',
-                    'May',
-                    'Jun',
-                    'Jul',
-                    'Aug',
-                    'Sep',
-                    'Oct',
-                    'Nov',
-                    'Dec'
-                ],
-                crosshair: true
+                categories: catename
             },
             yAxis: {
                 min: 0,
+                max: 1,
                 title: {
-                    text: 'Rainfall (mm)'
+                    text: ''
                 }
             },
             tooltip: {
                 headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
                 pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: 
+            [{
+                name: response.data[0].scenarios[0].description,
+                data: 
+                    [response.data[0].values[0].value, response.data[0].values[1].value, response.data[0].values[2].value, response.data[0].values[18].value, response.data[0].values[19].value]
+                
+        
+            }, {
+                name: response.data[0].scenarios[1].description,
+                data: [response.data[0].values[3].value, response.data[0].values[4].value, response.data[0].values[5].value, response.data[0].values[20].value, response.data[0].values[21].value ]
+        
+            }, {
+                name: response.data[0].scenarios[2].description,
+                data: [response.data[0].values[6].value, response.data[0].values[7].value, response.data[0].values[8].value, response.data[0].values[22].value, response.data[0].values[23].value, ]
+        
+            },  
+            {
+                name: response.data[0].scenarios[3].description,
+                data: [response.data[0].values[9].value, response.data[0].values[10].value, response.data[0].values[11].value, response.data[0].values[24].value, response.data[0].values[25].value ]
+        
+            },
+            {
+                name: response.data[0].scenarios[4].description,
+                data: [response.data[0].values[12].value, response.data[0].values[13].value, response.data[0].values[14].value, response.data[0].values[26].value, response.data[0].values[27].value, ]
+        
+            },
+             {
+                name: response.data[0].scenarios[5].description,
+                data: [response.data[0].values[15].value, response.data[0].values[16].value, response.data[0].values[17].value, response.data[0].values[28].value, response.data[0].values[29].value, ]
+        
+            }]
+            
+        });
+    
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
+        
+    }
+
+    test3 = () => {
+
+        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        axios.get( testUrl)
+        .then(function (response) {
+        Highcharts.chart('test', {
+            chart: {
+                type: 'heatmap'
+            },
+            title: {
+                text: response.data[0].description
+            },
+            subtitle: {
+                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
+            },
+            xAxis: {
+                categories: [
+                    response.data[0].indicatorCategories[0].name,
+                    response.data[0].indicatorCategories[1].name,
+                    response.data[0].indicatorCategories[2].name,
+                    response.data[0].indicatorCategories[3].name,
+                    response.data[0].indicatorCategories[4].name
+                ],
+            },
+            yAxis: {
+                categories: [
+                    response.data[0].scenarios[0].description,
+                    response.data[0].scenarios[1].description,
+                    response.data[0].scenarios[2].description,
+                    response.data[0].scenarios[3].description,
+                    response.data[0].scenarios[4].description,
+                    response.data[0].scenarios[5].description
+                ],
+                title: {
+                    text: null
+                }
+            },
+            colorAxis: {
+                min: 0,
+                minColor: '#FFFFFF',
+                maxColor: Highcharts.getOptions().colors[0]
+            },
+    legend: {
+      enabled: false
+    },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px"> {point.key} </span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
+                footerFormat: '</table>'
+            },
+            series: [{
+                data: 
+ [[0,0,response.data[0].values[0].value], [0,1,response.data[0].values[1].value], [0,2,response.data[0].values[2].value], [0,3,response.data[0].values[18].value], [0,4,response.data[0].values[19].value]
+,[1,0,response.data[0].values[3].value], [1,1,response.data[0].values[4].value], [1,2,response.data[0].values[5].value], [1,3,response.data[0].values[20].value], [1,4,response.data[0].values[21].value] 
+,[2,0,response.data[0].values[6].value], [2,1,response.data[0].values[7].value], [2,2,response.data[0].values[8].value], [2,3,response.data[0].values[22].value], [2,4,response.data[0].values[23].value] 
+,[3,0,response.data[0].values[9].value], [3,1,response.data[0].values[10].value], [3,2,response.data[0].values[11].value], [3,3,response.data[0].values[24].value], [3,4,response.data[0].values[25].value] 
+,[4,0,response.data[0].values[12].value], [4,1,response.data[0].values[13].value], [4,2,response.data[0].values[14].value], [4,3,response.data[0].values[26].value], [4,4,response.data[0].values[27].value]],
+                dataLabels: {
+                    enabled: true
+                }
+            }]
+        
+    })
+
+});
+        }
+
+    test2= () => {
+        console.log("ola");
+        
+        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        axios.get( testUrl)
+        .then(function (response) {
+        Highcharts.chart('test', {
+            chart: {
+                type: 'column',
+                polar: true
+            },
+            title: {
+                text: response.data[0].description
+            },
+            subtitle: {
+                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
+            },
+            xAxis: {
+                categories: [
+                    response.data[0].indicatorCategories[0].name,
+                    response.data[0].indicatorCategories[1].name,
+                    response.data[0].indicatorCategories[2].name,
+                    response.data[0].indicatorCategories[3].name,
+                    response.data[0].indicatorCategories[4].name
+                ],
+            },
+            yAxis: {
+                max: 1
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px"> {point.key} </span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f}</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true
@@ -59,125 +228,51 @@ class middleview extends Component {
                 }
             },
             series: [{
-                name: 'Tokyo',
-                data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
+                name: response.data[0].scenarios[0].description,
+                data: 
+                    [response.data[0].values[0].value, response.data[0].values[1].value, response.data[0].values[2].value, response.data[0].values[18].value, response.data[0].values[19].value]
+                
         
             }, {
-                name: 'New York',
-                data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3]
+                name: response.data[0].scenarios[1].description,
+                data: [response.data[0].values[3].value, response.data[0].values[4].value, response.data[0].values[5].value, response.data[0].values[20].value, response.data[0].values[21].value ]
         
             }, {
-                name: 'London',
-                data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2]
+                name: response.data[0].scenarios[2].description,
+                data: [response.data[0].values[6].value, response.data[0].values[7].value, response.data[0].values[8].value, response.data[0].values[22].value, response.data[0].values[23].value, ]
         
-            }, {
-                name: 'Berlin',
-                data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1]
+            },  
+            {
+                name: response.data[0].scenarios[3].description,
+                data: [response.data[0].values[9].value, response.data[0].values[10].value, response.data[0].values[11].value, response.data[0].values[24].value, response.data[0].values[25].value ]
+        
+            },
+            {
+                name: response.data[0].scenarios[4].description,
+                data: [response.data[0].values[12].value, response.data[0].values[13].value, response.data[0].values[14].value, response.data[0].values[26].value, response.data[0].values[27].value, ]
+        
+            },
+             {
+                name: response.data[0].scenarios[5].description,
+                data: [response.data[0].values[15].value, response.data[0].values[16].value, response.data[0].values[17].value, response.data[0].values[28].value, response.data[0].values[29].value, ]
         
             }]
-        });
-    }
-
-    test3 = () => {
-        console.log("hei");
-        const data = [{
-            name: 'Tanner Linsley',
-            age: 26,
-            friend: {
-              name: 'Jason Maurer',
-              age: 23,
-            }
-          }]
         
-          const columns = [{
-            Header: 'Name',
-            accessor: 'name' // String-based value accessors!
-          }, {
-            Header: 'Age',
-            accessor: 'age',
-            Cell: props => <span className='number'>{props.value}</span> // Custom cell components!
-          }, {
-            id: 'friendName', // Required because our accessor is not a string
-            Header: 'Friend Name',
-            accessor: d => d.friend.name // Custom value accessors!
-          }, {
-            Header: props => <span>Friend Age</span>, // Custom header components!
-            accessor: 'friend.age'
-          }]
-        
-          return <ReactTable
-          data={data}
-          columns={columns}
-        />
-        }
+    })
 
-    test2= () => {
-        console.log("ola");
-Highcharts.chart('test', {
-    
-        chart: {
-            polar: true
-        },
-    
-        title: {
-            text: 'Highcharts Polar Chart'
-        },
-    
-        pane: {
-            startAngle: 0,
-            endAngle: 360
-        },
-    
-        xAxis: {
-            tickInterval: 45,
-            min: 0,
-            max: 360,
-            labels: {
-                formatter: function () {
-                    return this.value + '°';
-                }
-            }
-        },
-    
-        yAxis: {
-            min: 0
-        },
-    
-        plotOptions: {
-            series: {
-                pointStart: 0,
-                pointInterval: 45
-            },
-            column: {
-                pointPadding: 0,
-                groupPadding: 0
-            }
-        },
-    
-        series: [{
-            type: 'column',
-            name: 'Column',
-            data: [8, 7, 6, 5, 4, 3, 2, 1],
-            pointPlacement: 'between'
-        }, {
-            type: 'line',
-            name: 'Line',
-            data: [1, 2, 3, 4, 5, 6, 7, 8]
-        }, {
-            type: 'area',
-            name: 'Area',
-            data: [1, 8, 2, 7, 3, 6, 4, 5]
-        }]
-    });
+});
+
 
     }
 
     render () {
+
         const Url = "http://melatupa.azurewebsites.net";
         
-                axios.get( 'https://cors-anywhere.herokuapp.com/' + Url + '/regionLevels')
+                axios.get( Url + '/regionLevels')
                 .then(function (response) {
                   console.log(response);
+                  
                 })
                 .catch(function (error) {
                   console.log(error);
@@ -189,24 +284,22 @@ Highcharts.chart('test', {
 
 <div className="row">
 
-<div id="test" className="col-md-12" > 
+<div id="test" className="col-md-12"> 
     <figure className="text-left" >
+    test teskstti
         <br/>
-
     </figure>
 </div>
 
 </div>    
         <br/>
         <button type="button" className="btn btn-primary"
-        onClick = {this.test} >Kaavio 1</button>   
+        onClick = {this.test} >Pylväs</button>   
         <button type="button" className="btn btn-primary"
-        onClick = {this.test2} >Kaavio 2</button>   
+        onClick = {this.test2} >Polar</button>   
         <button type="button" className="btn btn-primary"
-        onClick = {this.test3} >Taulukko</button>   
-        <button type="button" className="btn btn-primary pull-right">Lataa</button>   
-        <button type="button" className="btn btn-primary pull-right"
-        onClick = {() => window.print()}>Printtaa</button>   
+        onClick = {this.test3} >Taulukko</button>    
+
         </div>
         )
     }
