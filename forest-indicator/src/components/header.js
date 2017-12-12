@@ -24,7 +24,7 @@ constructor(props){
 
 <div className="col-md-12 text-center">
 <h1 className="coolheader">Forest indicator</h1>
-<button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }</button>
+
 </div>
 
 </div>

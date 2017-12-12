@@ -19,6 +19,7 @@ class rightwing extends Component {
             naturalProductsValue: [],
             carbonValue: [],
             othersValue: [],
+            language : false
         };
         this.onbuttonclicked = this.onbuttonclicked.bind(this);
 
@@ -34,7 +35,7 @@ class rightwing extends Component {
         this.updateNaturalProductsValue = this.updateNaturalProductsValue.bind(this);
         this.updateOthersValue = this.updateOthersValue.bind(this);
         this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);
-        this.toggleLanguage = this.toggleLanguage.bind(this);
+        
     }
 
     updateWoodProductionValue(newValue){
@@ -44,13 +45,6 @@ class rightwing extends Component {
         console.log("newValue: " + newValue + " woodProductionValue: " + this.state.woodProductionValue)
     }
 
-    toggleLanguage() {
-        if (localizedStrings.getLanguage() == "fi") {
-          localizedStrings.setLanguage("en");
-        } else {
-          localizedStrings.setLanguage("fi");
-        }
-    }
 
     updateBiodiversityValue(newValue){
         this.setState({
@@ -91,12 +85,7 @@ class rightwing extends Component {
 
     render() {
 
-        /*const title = strings.woodProduction;
-        const title1 = strings.naturalProducts;
-        const title2 = strings.diversity;
-        const title3 = strings.coal;
-        const title4 = strings.rest;*/
-        localizedStrings.setLanguage("fi");
+        
         return (
             <div>
             <div class="col-md-3 greenBox">
@@ -139,7 +128,7 @@ class rightwing extends Component {
                 
             </div>
             
-            <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }Fi/En</button>
+        
             </div>
         )
     }
