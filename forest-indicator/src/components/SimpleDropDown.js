@@ -27,7 +27,7 @@ class SimpleDropDown extends Component {
           simpleValue
           clearable={this.state.clearable}
           name="selected-area"
-          placeholder={localizedStrings.chooce1}
+          placeholder={localizedStrings.choose1}
           value={this.props.selectValue}
           onChange={this.props.updateValue}
           openOnClick={false}

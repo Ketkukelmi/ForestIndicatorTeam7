@@ -3,6 +3,7 @@ import {
     PopupboxManager,
     PopupboxContainer
   } from 'react-popupbox';
+  import localizedStrings from '../data/Localization.js'
 
 class FeedbackPopup extends Component {
 
@@ -45,9 +46,10 @@ class FeedbackPopup extends Component {
             fadeIn: true,
             fadeInSpeed: 500
           }
+
         return (
             <div>            
-                <p1>Sähköposti</p1>
+                <p1>{localizedStrings.email}</p1>
                     <br></br>
                     <input type="text" 
                     name="inputEmail"
@@ -55,21 +57,21 @@ class FeedbackPopup extends Component {
                     value={ this.state.inputEmail }
                     onChange={ this.inputChange }/>
                     <br></br>
-                <p1>Aihe</p1>
+                <p1>{localizedStrings.subject}</p1>
                     <br></br>
                     <input type="text" 
                     name="inputSubject"
                     value={ this.state.inputSubject }
                     onChange={ this.inputChange }/>
                     <br></br>
-                <p1>Palaute</p1>
+                <p1>{localizedStrings.feedback}</p1>
                     <br></br>
                     <textarea name="Text1" cols="35" rows="3"
                     name="inputMsg"
                     value={ this.state.inputMsg }
                     onChange={ this.inputChange }></textarea>
                 <button type = "button" className = "btn btn-success"
-                onClick={this.sendEmail}>Lähetä</button>
+                onClick={this.sendEmail}>{localizedStrings.send}</button>
             </div>
         )
     }

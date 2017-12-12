@@ -14,7 +14,7 @@ class middleview extends Component {
          
     test= () => {
         
-        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
         axios.get( testUrl)
         
         .then(function (response) {
@@ -50,7 +50,7 @@ class middleview extends Component {
                 text: response.data[0].description
             },
             subtitle: {
-                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24'
+                text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24'
             },
             xAxis: {
                 categories: catename
@@ -120,7 +120,7 @@ class middleview extends Component {
 
     test3 = () => {
 
-        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
         axios.get( testUrl)
         .then(function (response) {
         Highcharts.chart('test', {
@@ -131,7 +131,7 @@ class middleview extends Component {
                 text: response.data[0].description
             },
             subtitle: {
-                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
+                text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
             },
             xAxis: {
                 categories: [
@@ -189,7 +189,7 @@ class middleview extends Component {
     test2= () => {
         console.log("ola");
         
-        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
         axios.get( testUrl)
         .then(function (response) {
         Highcharts.chart('test', {
@@ -201,7 +201,7 @@ class middleview extends Component {
                 text: response.data[0].description
             },
             subtitle: {
-                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
+                text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
             },
             xAxis: {
                 categories: [
@@ -269,7 +269,7 @@ class middleview extends Component {
 
     render () {
 
-        const Url = "http://melatupa.azurewebsites.net";
+        const Url = "https://melatupa.azurewebsites.net";
         
                 axios.get( Url + '/regionLevels')
                 .then(function (response) {

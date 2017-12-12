@@ -14,11 +14,14 @@ en:{
     naturalProducts:"Natural Production",
     coal: "Coal",
     rest: "Rest",
-    chooce1:"Choose...",
+    choose1:"Choose...",
     choose2:"Choose one or more...",
     feedback:"Feedback",
     pillar:"Pillar diagram",
-    chart : "Chart"
+    chart : "Chart",
+    email:"Email",
+    subject:"Subject",
+    send:"Send"
 },
 fi: {
     chooce:"Skenaarioiden valinta",
@@ -36,7 +39,10 @@ fi: {
     choose2:"Valitse yksi tai useampi...",
     feedback:"Palaute",
     pillar: "Pylväs",
-    chart : "Taulukko"
+    chart : "Taulukko",
+    email:"Sähköposti",
+    subject:"Aihe",
+    send:"Lähetä"
 }
 });
 
