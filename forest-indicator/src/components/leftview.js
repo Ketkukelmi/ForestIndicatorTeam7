@@ -5,6 +5,7 @@ import SimpleDropDown from './SimpleDropDown.js';
 import MultipleSelector from './MultipleSelector.js';
 import GlobalMethods from '../data/GlobalMethods.js'
 import Data from '../data/Data'
+import localizedStrings from '../data/Localization.js'
 import '../App.css';
 
 class LeftView extends Component {
@@ -103,34 +104,34 @@ class LeftView extends Component {
 
     return (
       <div class="col-md-3 greenBox">
-        <h4>Skenaarioiden valinta</h4>
+        <h4>{localizedStrings.chooce}</h4>
         <SimpleDropDown 
           options={this.state.regionLevelData} 
-          title="Aluetaso" 
+          title={localizedStrings.region}
           updateValue={this.updateRegionLevelValue} 
           selectValue={this.state.regionLevelValue}/>
         <br></br>
         <SimpleDropDown 
           options={this.state.regionsData} 
-          title="Alue"  
+          title={localizedStrings.forestyCenter}  
           updateValue={this.updateRegionValue} 
           selectValue={this.state.regionValue}/>
         <br></br>
         <SimpleDropDown 
           options={this.state.scenarioCollectionData} 
-          title="Skenaariokokoelma"  
+          title={localizedStrings.scenarioCollection}  
           updateValue={this.updateScenarioCollectionValue} 
           selectValue={this.state.scenarioCollectionValue}/>
         <br></br>
         <MultipleSelector 
           choices = {this.state.scenariosData} 
-          title="Skenaariot" 
+          title={localizedStrings.scenarios} 
           updateValue={this.updateScenarioValue} 
           selectValue={this.state.scenarioValue}/>
         <br></br>
         <MultipleSelector 
           choices = {this.state.timePeriodData} 
-          title="Ajankohta"  
+          title={localizedStrings.yearsPeriods}
           updateValue={this.updateTimePeriodValue} 
           selectValue={this.state.timePeriodValue}/>
       </div>

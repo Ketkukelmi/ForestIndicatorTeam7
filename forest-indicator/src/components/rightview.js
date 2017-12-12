@@ -121,7 +121,7 @@ class rightwing extends Component {
 
                 <br></br>
                 <button type="button" className="btn btn-primary"
-                    onClick={this.onbuttonclicked}>Palaute</button>
+                    onClick={this.onbuttonclicked}>{localizedStrings.feedback}</button>
 
                 {this.state.showComponent && <FeedbackPopup />}
 
