@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import localizedStrings from '../data/Localization.js'
 
 class SimpleDropDown extends Component {
 
@@ -26,7 +27,7 @@ class SimpleDropDown extends Component {
           simpleValue
           clearable={this.state.clearable}
           name="selected-area"
-          placeholder="Valitse..."
+          placeholder={localizedStrings.chooce1}
           value={this.props.selectValue}
           onChange={this.props.updateValue}
           openOnClick={false}

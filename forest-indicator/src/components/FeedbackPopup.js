@@ -64,7 +64,7 @@ class FeedbackPopup extends Component {
                     <br></br>
                 <p1>Palaute</p1>
                     <br></br>
-                    <textarea name="Text1" cols="40" rows="3"
+                    <textarea name="Text1" cols="35" rows="3"
                     name="inputMsg"
                     value={ this.state.inputMsg }
                     onChange={ this.inputChange }></textarea>

@@ -5,6 +5,8 @@ import Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/js/highcharts-more.js';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import Export from 'highcharts/modules/exporting.js';
+import '../App.css';
+import localizedStrings from '../data/Localization.js'
 HighchartsMore(Highcharts)        
 Heatmap(Highcharts)
 Export(Highcharts)
@@ -279,8 +281,10 @@ class middleview extends Component {
                 });
 
         return (
+    
     <div className="col-md-6">
-        <h2 className="text-center">Alue</h2>
+    <div className="lightgreenBox">
+        <h2 className="text-center">{localizedStrings.forestyCenter}</h2>
 
 <div className="row">
 
@@ -294,12 +298,12 @@ class middleview extends Component {
 </div>    
         <br/>
         <button type="button" className="btn btn-primary"
-        onClick = {this.test} >Pylväs</button>   
+        onClick = {this.test} >{localizedStrings.pillar}</button>   
         <button type="button" className="btn btn-primary"
         onClick = {this.test2} >Polar</button>   
         <button type="button" className="btn btn-primary"
-        onClick = {this.test3} >Taulukko</button>    
-
+        onClick = {this.test3} >{localizedStrings.chart}</button>    
+        </div>
         </div>
         )
     }
