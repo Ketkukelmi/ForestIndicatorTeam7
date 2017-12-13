@@ -10,130 +10,41 @@ import '../App.css';
 
 class LeftView extends Component {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      regionLevelValue: '',
-      regionValue: '',
-      scenarioCollectionValue: '',
-      scenarioValue: '',
-      timePeriodValue: '',
-      regionsId: 0,
-      scenarioCollectionId: 0,
-      regionLevelData : [],
-      regionsData : [],
-      scenarioCollectionData: [],
-      scenariosData: [],
-      timePeriodData: [],
-      indicatorCategoriesData:[]  
-    }
-    this.updateRegionLevelValue = this.updateRegionLevelValue.bind(this);
-    this.updateRegionValue = this.updateRegionValue.bind(this);
-    this.updateScenarioCollectionValue = this.updateScenarioCollectionValue.bind(this);
-    this.updateScenarioValue = this.updateScenarioValue.bind(this);
-    this.updateTimePeriodValue = this.updateTimePeriodValue.bind(this);
-    
-    Data.getRegionLevels().then(result => {
-      this.setState({
-        regionLevelData: GlobalMethods.createOptions(GlobalMethods.getRegionLevels(result))
-      })
-      console.log(this.state.regionLevelData);
-    })
-  }
-
-  updateRegionLevelValue(newValue) {
-    this.setState({
-      regionLevelValue: newValue,
-      regionsId: newValue
-    });
-    console.log("newValue: " + newValue + " regionLevelValue: " + this.state.regionLevelValue + " regionsId: " +  this.state.regionsId)        
-    
-    Data.getRegionswithId(newValue).then(result => {
-      this.setState({
-        regionsData: GlobalMethods.createOptions(GlobalMethods.getRegions(result))
-      })
-      console.log(this.state.regionsData);
-    })
-  }
-
-  updateRegionValue(newValue) {
-    console.log(newValue+"")    
-    this.setState({
-      regionValue: newValue,
-    });
-    Data.getRegionswithId(this.state.regionLevelValue).then(result => {
-      this.setState({
-        scenarioCollectionData: GlobalMethods.createOptions(GlobalMethods.getScenarioCollection(result, newValue))
-      })
-      console.log(this.state.scenarioCollectionData);
-    })
-  }
-
-  updateScenarioCollectionValue(newValue) {
-    console.log(newValue+"")    
-    this.setState({
-      scenarioCollectionValue: newValue,
-    });
-    Data.getScenarioCollection(newValue, this.state.regionValue).then(result => {
-      this.setState({
-        scenariosData: GlobalMethods.createDescriptionAsNameOptions(GlobalMethods.getScenarios(result)),
-        timePeriodData: GlobalMethods.createTimeOptions(GlobalMethods.getTimePeriods(result)),
-        indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
-      })
-      console.log(this.state.scenariosData);
-    })
-  }
-
-  updateScenarioValue(newValue) {
-    console.log("New Value:  " +newValue)        
-    this.setState({
-      scenarioValue: newValue,
-    });
-    console.log("Value: " + this.state.scenarioValue)     
-  }
-
-  updateTimePeriodValue(newValue) {
-    console.log("New Value:  " +newValue)    
-    this.setState({
-      timePeriodValue: newValue,
-    });
-    console.log("Value: " + this.state.timePeriodValue)     
-  }
-
   render() {
 
     return (
       <div class="col-md-3 greenBox">
         <h4>{localizedStrings.chooce}</h4>
         <SimpleDropDown 
-          options={this.state.regionLevelData} 
-          title={localizedStrings.region}
-          updateValue={this.updateRegionLevelValue} 
-          selectValue={this.state.regionLevelValue}/>
+          options={this.props.regionLevelData}
+          title="Aluetaso" 
+          updateValue={this.props.updateRegionLevelValue}
+          selectValue={this.props.regionLevelValue}/>
         <br></br>
-        <SimpleDropDown 
-          options={this.state.regionsData} 
-          title={localizedStrings.forestyCenter}  
-          updateValue={this.updateRegionValue} 
-          selectValue={this.state.regionValue}/>
+        <SimpleDropDown
+          options={this.props.regionsData} 
+          title="Alue"
+          updateValue={this.props.updateRegionValue} 
+          selectValue={this.props.regionValue}/>
         <br></br>
-        <SimpleDropDown 
-          options={this.state.scenarioCollectionData} 
-          title={localizedStrings.scenarioCollection}  
-          updateValue={this.updateScenarioCollectionValue} 
-          selectValue={this.state.scenarioCollectionValue}/>
-        <br></br>
-        <MultipleSelector 
-          choices = {this.state.scenariosData} 
-          title={localizedStrings.scenarios} 
-          updateValue={this.updateScenarioValue} 
-          selectValue={this.state.scenarioValue}/>
+        <SimpleDropDown
+          options={this.props.scenarioCollectionData} 
+          title="Skenaariokokoelma"
+          updateValue={this.props.updateScenarioCollectionValue} 
+          selectValue={this.props.scenarioCollectionValue}/>
         <br></br>
         <MultipleSelector 
-          choices = {this.state.timePeriodData} 
-          title={localizedStrings.yearsPeriods}
-          updateValue={this.updateTimePeriodValue} 
-          selectValue={this.state.timePeriodValue}/>
+          choices = {this.props.scenariosData} 
+          title="Skenaariot" 
+          updateValue={this.props.updateScenarioValue} 
+          selectValue={this.props.scenarioValue}/>
+        <br></br>
+        <MultipleSelector 
+          choices = {this.props.timePeriodData} 
+          title="Ajankohta"  
+          updateValue={this.props.updateTimePeriodValue} 
+          selectValue={this.props.timePeriodValue}/>
+
       </div>
     )
   }
