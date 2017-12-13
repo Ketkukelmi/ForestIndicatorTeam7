@@ -5,6 +5,8 @@ import MultipleSelector from './MultipleSelector';
 import GlobalMethods from '../data/GlobalMethods.js'
 import FeedbackPopup from './FeedbackPopup.js';
 import Data from '../data/Data.js'
+import localizedStrings from '../data/Localization.js'
+import '../App.css';
 
 class rightwing extends Component {
     constructor(props) {
@@ -14,7 +16,6 @@ class rightwing extends Component {
         };
         this.onbuttonclicked = this.onbuttonclicked.bind(this);
     }
-
     
     onbuttonclicked() {
 
@@ -26,50 +27,49 @@ class rightwing extends Component {
     }
 
     render() {
-
-        const title = "Puuntuotanto";
-        const title1 = "Monimuotoisuus";
-        const title2 = "Keruutuotteet";
-        const title3 = "Hiili";
-        const title4 = "Muut";
-
         return (
-            <div class="col-md-3">
+            <div>
+            <div class="col-md-3 greenBox">
                 <MultipleSelector 
                     choices={this.props.woodProductionData} 
-                    title={title}
+                    title={localizedStrings.woodProduction}
                     updateValue={this.props.updateWoodProductionValue} 
                     selectValue={this.props.woodProductionValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={this.props.biodiversityData} 
-                    title={title1} 
+                    title={localizedStrings.naturalProducts} 
                     updateValue={this.props.updateBiodiversityValue} 
                     selectValue={this.props.biodiversityValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={this.props.naturalProductsData} 
-                    title={title2}                    
+                    title={localizedStrings.diversity}                    
                     updateValue={this.props.updateNaturalProductsValue} 
                     selectValue={this.props.naturalProductsValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={this.props.carbonData} 
-                    title={title3}          
+                    title={localizedStrings.coal}          
                     updateValue={this.props.updateCarbonValue} 
                     selectValue={this.props.carbonValue}/>
                 <br></br>
                 <MultipleSelector 
                     choices={this.props.othersData} 
-                    title={title4}          
+                    title={localizedStrings.rest}          
                     updateValue={this.props.updateOthersValue} 
                     selectValue={this.props.othersValue} />
 
                 <br></br>
-                <button type="button" className="btn btn-success"
-                    onClick={this.onbuttonclicked}>Palaute</button>
+                <button type="button" className="btn btn-primary"
+                    onClick={this.onbuttonclicked}>{localizedStrings.feedback}</button>
 
                 {this.state.showComponent && <FeedbackPopup />}
+
+                
+            </div>
+            
+        
             </div>
         )
     }

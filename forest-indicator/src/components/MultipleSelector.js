@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
+import localizedStrings from '../data/Localization.js'
 
 class MultipleSelector extends Component {
 
@@ -41,7 +42,7 @@ class MultipleSelector extends Component {
 					multi
                     onChange={this.props.updateValue}
                     options={this.props.choices}
-					placeholder="Valitse yksi tai useampi vaihtoehto"
+					placeholder={localizedStrings.choose2}
                     removeSelected={this.state.removeSelected}
 					rtl={this.state.rtl}
 					simpleValue

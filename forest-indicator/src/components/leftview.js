@@ -3,14 +3,18 @@ import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import SimpleDropDown from './SimpleDropDown.js';
 import MultipleSelector from './MultipleSelector.js';
+import GlobalMethods from '../data/GlobalMethods.js'
+import Data from '../data/Data'
+import localizedStrings from '../data/Localization.js'
+import '../App.css';
 
 class LeftView extends Component {
 
   render() {
 
     return (
-      <div class="col-md-3">
-        <h4>Skenaarioiden valinta</h4>
+      <div class="col-md-3 greenBox">
+        <h4>{localizedStrings.chooce}</h4>
         <SimpleDropDown 
           options={this.props.regionLevelData}
           title="Aluetaso" 
@@ -40,6 +44,7 @@ class LeftView extends Component {
           title="Ajankohta"  
           updateValue={this.props.updateTimePeriodValue} 
           selectValue={this.props.timePeriodValue}/>
+
       </div>
     )
   }

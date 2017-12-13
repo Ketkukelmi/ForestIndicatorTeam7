@@ -8,6 +8,8 @@ import Middleview from './components/middleview.js';
 import Rightview from './components/rightview.js';
 import GlobalMethods from './data/GlobalMethods.js'
 import Data from './data/Data'
+import {changeLang, getScenarioCollection} from './data/Data'
+import localizedStrings from './data/Localization.js'
 
 class App extends Component {
 
@@ -39,6 +41,9 @@ class App extends Component {
       naturalProductsData: [],
       carbonData: [],
       othersData: [],
+      
+      language : false,
+      indicatorCategoriesData: []
     }
 
     this.updateRegionLevelValue = this.updateRegionLevelValue.bind(this);
@@ -52,6 +57,9 @@ class App extends Component {
     this.updateOthersValue = this.updateOthersValue.bind(this);
     this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);
 
+    this.toggleLanguage = this.toggleLanguage.bind(this);
+    this.renewData = this.renewData.bind(this);
+    
     Data.getRegionLevels().then(result => {
       this.setState({
         regionLevelData: GlobalMethods.createOptions(GlobalMethods.getRegionLevels(result))
@@ -169,7 +177,28 @@ class App extends Component {
       othersData: this.getIndicator(5),
     })
   }
+  toggleLanguage() {
+    debugger;
+    if (localizedStrings.getLanguage() == "fi") {
+      localizedStrings.setLanguage("en");
+      
+      
+    } else {
+      localizedStrings.setLanguage("fi");
+      this.setState({language : false})
+    }
+    this.renewData();
+}
+renewData(){
+  changeLang(localizedStrings.getLanguage());
+  getScenarioCollection(6, 24).then(result => {
+      this.setState({
+          indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
+      })
+      console.log(this.state.indicatorCategoriesData);
+  })
 
+}
   render() {
     let leftViewProps = {
       //Values
@@ -230,7 +259,7 @@ class App extends Component {
           <Rightview  {...rightViewProps} />
 
         </div>
-
+        <button type="button" className="btn btn-primary" onClick={this.toggleLanguage}>{ localizedStrings.languageOnSwitch }Fi/En</button>
       </div>
     );
   }
