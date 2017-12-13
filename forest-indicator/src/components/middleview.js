@@ -5,6 +5,7 @@ import Highcharts from 'highcharts';
 import HighchartsMore from 'highcharts/js/highcharts-more.js';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import Export from 'highcharts/modules/exporting.js';
+import _ from 'lodash';
 import '../App.css';
 import localizedStrings from '../data/Localization.js'
 HighchartsMore(Highcharts)        
@@ -14,35 +15,58 @@ class middleview extends Component {
          
     test= () => {
         
-        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+        const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
         axios.get( testUrl)
         
         .then(function (response) {
-
+            console.log(response.data[0].scenarios);
+            
             var catename = [];
-            for (var count = 0; count < response.data[0].indicatorCategories.length; count++) { 
-                if (count % 3 === 2) {
-                    console.log(count);
-                }
-                catename.push(response.data[0].indicatorCategories[count].name);
-                console.log(catename);
+            for (var categorycount = 0; categorycount < response.data[0].indicatorCategories.length; categorycount++) { 
+                catename.push(response.data[0].indicatorCategories[categorycount].name);
             }
-            var chartdata = [];
+            /*var chartdata = [];
             
             var seriesname = [];
-            for (var count = 0; count < response.data[0].scenarios.length; count++) { 
-                if (count % 3 === 2) {
-                    console.log(count);
-                }
-                seriesname.push(response.data[0].scenarios[count].description);
-                console.log(seriesname);
-            }
 
-            for (var count = 0; count < response.data[0].values.length; count++) { 
-                
-                chartdata.push(response.data[0].values[count].value);
+            var variable = [];
+            for (var seriescount = 0; seriescount < response.data[0].scenarios.length; seriescount++) { 
+                if (seriescount % 3 === 2) {
+                    console.log(seriescount);
+                }
+                seriesname.push({"name": response.data[0].scenarios[seriescount].description,"Id":response.data[0].scenarios[seriescount].id});
             }
-          Highcharts.chart('test', {
+            console.log(seriesname);*/
+            
+            const categories = response.data[0].indicatorCategories.map(function (item){
+                return {
+                        item
+                    };
+            });
+            
+            const chart = response.data[0].values.map(function (item){
+                return {
+                    value: item.value,
+                    Id: item.scenarioId
+                };
+            });
+
+            const seriesmap = response.data[0].scenarios.map(function (item){
+                return {
+                    description: item.description,
+                    Id: item.id
+                };
+            });
+
+           /* for (var valuecount = 0; valuecount < response.data[0].values.length; valuecount++) {
+                chartdata.push({"value":response.data[0].values[valuecount].value, "Id": response.data[0].values[valuecount].scenarioId});
+            }*/
+            console.log(chart);
+            
+            const res = chart.map(x => Object.assign( seriesmap.find(y => y.Id === x.Id),x));
+            console.log(res);
+                                    
+        const options =  Highcharts.chart('test', {
             chart: {
                 type: 'column'
             },
@@ -50,7 +74,7 @@ class middleview extends Component {
                 text: response.data[0].description
             },
             subtitle: {
-                text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24'
+                text: 'Source: http://melatupa.azurewebsites.net/scenarioCollection/6/region/24'
             },
             xAxis: {
                 categories: catename
@@ -76,40 +100,53 @@ class middleview extends Component {
                     borderWidth: 0
                 }
             },
-            series: 
-            [{
-                name: response.data[0].scenarios[0].description,
-                data: 
-                    [response.data[0].values[0].value, response.data[0].values[1].value, response.data[0].values[2].value, response.data[0].values[18].value, response.data[0].values[19].value]
-                
-        
-            }, {
-                name: response.data[0].scenarios[1].description,
-                data: [response.data[0].values[3].value, response.data[0].values[4].value, response.data[0].values[5].value, response.data[0].values[20].value, response.data[0].values[21].value ]
-        
-            }, {
-                name: response.data[0].scenarios[2].description,
-                data: [response.data[0].values[6].value, response.data[0].values[7].value, response.data[0].values[8].value, response.data[0].values[22].value, response.data[0].values[23].value, ]
-        
-            },  
-            {
-                name: response.data[0].scenarios[3].description,
-                data: [response.data[0].values[9].value, response.data[0].values[10].value, response.data[0].values[11].value, response.data[0].values[24].value, response.data[0].values[25].value ]
-        
-            },
-            {
-                name: response.data[0].scenarios[4].description,
-                data: [response.data[0].values[12].value, response.data[0].values[13].value, response.data[0].values[14].value, response.data[0].values[26].value, response.data[0].values[27].value, ]
-        
-            },
-             {
-                name: response.data[0].scenarios[5].description,
-                data: [response.data[0].values[15].value, response.data[0].values[16].value, response.data[0].values[17].value, response.data[0].values[28].value, response.data[0].values[29].value, ]
-        
-            }]
-            
-        });
+           /* series:[{
+            name: response.data[0].scenarios[1].description,
+            data: [response.data[0].values[3].value, response.data[0].values[4].value, response.data[0].values[5].value, response.data[0].values[20].value, response.data[0].values[21].value ]
     
+        }, {
+            name: response.data[0].scenarios[2].description,
+            data: [response.data[0].values[6].value, response.data[0].values[7].value, response.data[0].values[8].value, response.data[0].values[22].value, response.data[0].values[23].value, ]
+    
+        },  
+        {
+            name: response.data[0].scenarios[3].description,
+            data: [response.data[0].values[9].value, response.data[0].values[10].value, response.data[0].values[11].value, response.data[0].values[24].value, response.data[0].values[25].value ]
+    
+        },
+        {
+            name: response.data[0].scenarios[4].description,
+            data: [response.data[0].values[12].value, response.data[0].values[13].value, response.data[0].values[14].value, response.data[0].values[26].value, response.data[0].values[27].value, ]
+    
+        },
+         {
+            name: response.data[0].scenarios[5].description,
+            data: [response.data[0].values[15].value, response.data[0].values[16].value, response.data[0].values[17].value, response.data[0].values[28].value, response.data[0].values[29].value, ]
+    
+        }]
+    });*/
+series: []
+
+        });
+        const tester = res.map((item,index )=>
+        options.series[item.Id]= 
+        {
+            description: item.description,
+            value: item.value
+        }
+    );
+        const group = _.groupBy(tester, test =>{
+            const namevalue = test.description;
+            delete test.description;
+            {return namevalue}
+        });
+                    
+            console.log(seriesmap);
+            console.log(chart);            
+            console.log(group);          
+            //console.log(variable);            
+           // console.log(tester);
+        console.log(options.series);        
         })
         .catch(function (error) {
           console.log(error);
