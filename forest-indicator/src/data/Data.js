@@ -38,6 +38,7 @@ export function getScenarioCollection(ColledtionId, id) {
       const items = results.data.map(element => {
         return element;
       })
+      console.log(items);
       resolve(items);
     }).catch(error => {
       console.log("Error getting items");

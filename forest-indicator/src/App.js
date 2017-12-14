@@ -109,6 +109,8 @@ class App extends Component {
         indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
       })
       console.log(this.state.indicatorCategoriesData);
+      console.log(this.state.scenariosData);
+      console.log(this.state.timePeriodData);
     })
     this.setIndicators();
   }
@@ -224,7 +226,20 @@ renewData(){
       updateScenarioValue: this.updateScenarioValue,
       updateTimePeriodValue: this.updateTimePeriodValue,
     }
-
+    let middleViewProps = {
+      //Values
+      regionLevelValue: this.state.regionLevelValue,
+      regionValue: this.state.regionValue,
+      scenarioCollectionValue: this.state.scenarioCollectionValue,
+      scenarioValue: this.state.scenarioValue,
+      timePeriodValue: this.state.timePeriodValue,
+      woodProductionValue: this.state.woodProductionValue,
+      biodiversityValue: this.state.biodiversityValue,
+      naturalProductsValue: this.state.naturalProductsValue,
+      carbonValue: this.state.carbonValue,
+      othersValue: this.state.othersValue
+      
+    }
     let rightViewProps = {
       //Values
       woodProductionValue: this.state.woodProductionValue,
@@ -254,7 +269,7 @@ renewData(){
 
           <LeftView {...leftViewProps} />
 
-          <Middleview />
+          <Middleview {...middleViewProps}/>
 
           <Rightview  {...rightViewProps} />
 

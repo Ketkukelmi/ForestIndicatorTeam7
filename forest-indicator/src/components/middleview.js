@@ -7,12 +7,16 @@ import Heatmap from 'highcharts/modules/heatmap.js';
 import Export from 'highcharts/modules/exporting.js';
 import _ from 'lodash';
 import '../App.css';
-import localizedStrings from '../data/Localization.js'
+import App from '../App.js';
+import getScenarioCollection from '../data/Data';
+import GlobalMethods from '../data/GlobalMethods.js'
+import localizedStrings from '../data/Localization.js';
 HighchartsMore(Highcharts)        
 Heatmap(Highcharts)
 Export(Highcharts)
 class middleview extends Component {
          
+
     test= () => {
         
         const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
@@ -305,12 +309,15 @@ series: []
     }
 
     render () {
-
+        console.log(this.props.woodProductionValue + 
+            this.props.biodiversityValue +
+            this.props.naturalProductsValue +
+            this.props.carbonValue
+            )
         const Url = "https://melatupa.azurewebsites.net";
         
                 axios.get( Url + '/regionLevels')
                 .then(function (response) {
-                  console.log(response);
                   
                 })
                 .catch(function (error) {
