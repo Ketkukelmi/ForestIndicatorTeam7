@@ -2,6 +2,7 @@ import axios from 'axios';
 
 export function changeLang(language){
   axios.defaults.headers.get['Accept-Language'] = language;
+  getRegionLevels();
 }
 
 function getRegionLevels() {
