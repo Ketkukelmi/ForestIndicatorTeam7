@@ -268,8 +268,8 @@ class middleview extends Component {
     }
 
     render () {
+        const Url = "http://melatupa.azurewebsites.net";
 
-        const Url = "https://melatupa.azurewebsites.net";
         
                 axios.get( Url + '/regionLevels')
                 .then(function (response) {
@@ -290,6 +290,7 @@ class middleview extends Component {
 
 <div id="test" className="col-md-12"> 
     <figure className="text-left" >
+
     test teskstti
         <br/>
     </figure>

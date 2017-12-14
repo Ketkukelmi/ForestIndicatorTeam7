@@ -39,8 +39,8 @@ class LeftView extends Component {
           updateValue={this.props.updateScenarioValue} 
           selectValue={this.props.scenarioValue}/>
         <br></br>
-        <MultipleSelector 
-          choices = {this.props.timePeriodData} 
+        <SimpleDropDown 
+          options = {this.props.timePeriodData} 
           title={localizedStrings.yearsPeriods}
           updateValue={this.props.updateTimePeriodValue} 
           selectValue={this.props.timePeriodValue}/>
