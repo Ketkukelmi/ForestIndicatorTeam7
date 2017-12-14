@@ -17,31 +17,31 @@ class LeftView extends Component {
         <h4>{localizedStrings.chooce}</h4>
         <SimpleDropDown 
           options={this.props.regionLevelData}
-          title="Aluetaso" 
+          title={localizedStrings.region}
           updateValue={this.props.updateRegionLevelValue}
           selectValue={this.props.regionLevelValue}/>
         <br></br>
         <SimpleDropDown
           options={this.props.regionsData} 
-          title="Alue"
+          title={localizedStrings.forestyCenter}
           updateValue={this.props.updateRegionValue} 
           selectValue={this.props.regionValue}/>
         <br></br>
         <SimpleDropDown
           options={this.props.scenarioCollectionData} 
-          title="Skenaariokokoelma"
+          title={localizedStrings.scenarioCollection}
           updateValue={this.props.updateScenarioCollectionValue} 
           selectValue={this.props.scenarioCollectionValue}/>
         <br></br>
         <MultipleSelector 
           choices = {this.props.scenariosData} 
-          title="Skenaariot" 
+          title={localizedStrings.scenarios} 
           updateValue={this.props.updateScenarioValue} 
           selectValue={this.props.scenarioValue}/>
         <br></br>
         <MultipleSelector 
           choices = {this.props.timePeriodData} 
-          title="Ajankohta"  
+          title={localizedStrings.yearsPeriods}
           updateValue={this.props.updateTimePeriodValue} 
           selectValue={this.props.timePeriodValue}/>
 
