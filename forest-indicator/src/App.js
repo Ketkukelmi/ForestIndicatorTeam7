@@ -210,11 +210,12 @@ renewData(){
       })
       console.log(this.state.indicatorCategoriesData);
   })
+}
 
   getValueByIndicators(values, id) {
     let scenariosArray = this.state.scenarioValue.split(",")
     let indicatorArray = values.split(",")
-    let timePeriod = this.state.timePeriodValue.split(",").pop()
+    let timePeriod = this.state.timePeriodValue
     //let lastValue = values.split(",")
     let chosenValueSeries = []
     let series = []
@@ -267,8 +268,6 @@ renewData(){
     })
   }
 
-
-}
   render() {
     let leftViewProps = {
       //Values
