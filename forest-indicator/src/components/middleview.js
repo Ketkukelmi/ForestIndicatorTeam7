@@ -288,25 +288,93 @@ series: []
 });
 
     }
+    test4= () => {
+        let name = ""
+        let values = []
+
+        let series = []
+        
+        this.props.values.forEach(value => {
+            name = value.seriesObj.name,
+            values = value.seriesObj.data
+            series.push({name: name, data: values})
+        })
+        
+        console.log("mame " + name + " values " + values)
+        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+
+        Highcharts.chart('test', {
+            chart: {
+                type: 'column',
+
+            },
+            title: {
+                text: "Juttu"
+            },
+            subtitle: {
+                text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
+            },
+            xAxis: {
+                categories: this.props.indicatorNames
+            },
+            yAxis: {
+                max: 1
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px"> {point.key} </span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: series
+    })
+}
 
     render () {
+        const series = []
+
         const config = {
+            
             chart:{
                 type: "column"
               },
               xAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+                categories: this.props.indicatorNames
               },
               yAxis: {
-                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+                max: 1
               },
               series: []
             };
-            config.series = this.props.seriesToSend[0];
+            config.series = series;
+
+        this.props.values.forEach(value => {
+            let name = ""            
+            let values = []
+            name = value.seriesObj.name,
+            values = value.seriesObj.data
+            const seriesData = {
+                name: name, data: values
+            }
+            series.push(seriesData);
+            });
+            console.log(this.props.update);
+            
             console.log(config.series);
-            console.log(this.props.seriesToSend[0]);
-            return (
-        
+            console.log(this.props.values)
+            //let chart = this.refs.chart.getChart();
+            
+                console.log(this.props.indicatorNames)
+        return (
+    
     <div className="col-md-6">
     <div className="lightgreenBox">
         <h2 className="text-center">{localizedStrings.forestyCenter}</h2>
@@ -314,15 +382,15 @@ series: []
 <div className="row">
 
 <div id="test" className="col-md-12">
-<ReactHighcharts config = {config}></ReactHighcharts>
+<ReactHighcharts config = {config} ref="chart"></ReactHighcharts>
 </div>
 
 </div>    
         <br/>
         <button type="button" className="btn btn-primary"
-        onClick = {this.test} >{localizedStrings.pillar}</button>   
+        onClick = {this.test4} >{localizedStrings.pillar}</button>   
         <button type="button" className="btn btn-primary"
-        onClick = {this.test2} >Polar</button>   
+        onClick = {this.redraw} >Polar</button>   
         <button type="button" className="btn btn-primary"
         onClick = {this.test3} >{localizedStrings.chart}</button>    
         </div>

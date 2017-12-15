@@ -32,6 +32,7 @@ class App extends Component {
       indicatorCategoriesData: [],
       //Middle view states
       seriesToSend: [],
+      indicatorNames: [],
       //Right view states
       //Values (Id)
       woodProductionValue: [],
@@ -117,6 +118,8 @@ class App extends Component {
     })
     this.setIndicators();
   }
+
+
 
   updateScenarioValue(newValue) {
     this.setState({
@@ -220,16 +223,18 @@ renewData(){
     //let lastValue = values.split(",")
     let chosenValueSeries = []
     let series = []
-    let indicatorNames = []
+    let indicatorNamesArray = []
     scenariosArray.forEach(scenario => {
 
       let chosenValues = []
       indicatorArray.forEach(indicator => {
         //Save name to array -> give this to graph 
         this.state.indicatorCategoriesData.forEach(indicatorData => {
-          if (indicatorData.value == indicator) {
-            indicatorNames.push(indicatorData.label)
-          }
+          indicatorData.indicators.forEach(indicatorForName=>{
+            if (indicatorForName.id == indicator) {
+              indicatorNamesArray.push(indicatorForName.name)
+            }
+          })
         })
 
         this.state.valuesData.forEach(value => {
@@ -265,7 +270,8 @@ renewData(){
 
     console.log(series)
     this.setState({
-      seriesToSend: series
+      seriesToSend: series,
+      indicatorNames: indicatorNamesArray
     })
   }
 
@@ -291,9 +297,7 @@ renewData(){
       updateScenarioValue: this.updateScenarioValue,
       updateTimePeriodValue: this.updateTimePeriodValue,
     }
-    let middleViewProps = {
-      seriesToSend: this.state.seriesToSend
-    }
+
     let rightViewProps = {
       //Values
       woodProductionValue: this.state.woodProductionValue,
@@ -324,7 +328,7 @@ renewData(){
           <LeftView {...leftViewProps} />
 
 
-          <Middleview {...middleViewProps} />
+          <Middleview values={this.state.seriesToSend} update={this.state.scenarioValue} indicatorNames={this.state.indicatorNames} />
 
           <Rightview  {...rightViewProps} />
 
