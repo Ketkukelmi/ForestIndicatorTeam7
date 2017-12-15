@@ -32,6 +32,7 @@ class App extends Component {
       indicatorCategoriesData: [],
       //Middle view states
       seriesToSend: [],
+      indicatorNames: [],
       //Right view states
       //Values (Id)
       woodProductionValue: [],
@@ -122,6 +123,7 @@ class App extends Component {
       scenarioValue: newValue,
     });
     console.log("Value: " + this.state.scenarioValue)
+    
   }
 
   updateTimePeriodValue(newValue) {
@@ -219,16 +221,18 @@ renewData(){
     //let lastValue = values.split(",")
     let chosenValueSeries = []
     let series = []
-    let indicatorNames = []
+    let indicatorNamesArray = []
     scenariosArray.forEach(scenario => {
 
       let chosenValues = []
       indicatorArray.forEach(indicator => {
         //Save name to array -> give this to graph 
         this.state.indicatorCategoriesData.forEach(indicatorData => {
-          if (indicatorData.value == indicator) {
-            indicatorNames.push(indicatorData.label)
-          }
+          indicatorData.indicators.forEach(indicatorForName=>{
+            if (indicatorForName.id == indicator) {
+              indicatorNamesArray.push(indicatorForName.name)
+            }
+          })
         })
 
         this.state.valuesData.forEach(value => {
@@ -264,7 +268,8 @@ renewData(){
 
     console.log(series)
     this.setState({
-      seriesToSend: series
+      seriesToSend: series,
+      indicatorNames: indicatorNamesArray
     })
   }
 
@@ -320,7 +325,7 @@ renewData(){
 
           <LeftView {...leftViewProps} />
 
-          <Middleview valuesToSend={this.state.seriesToSend} />
+          <Middleview values={this.state.seriesToSend} indicatorNames={this.state.indicatorNames} />
 
           <Rightview  {...rightViewProps} />
 

@@ -266,6 +266,55 @@ class middleview extends Component {
 
 
     }
+    test4= () => {
+        let name = ""
+        let values = []
+
+        let series = []
+        
+        this.props.values.forEach(value => {
+            name = value.seriesObj.name,
+            values = value.seriesObj.data
+            series.push({name: name, data: values})
+        })
+        
+        console.log("mame " + name + " values " + values)
+        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
+
+        Highcharts.chart('test', {
+            chart: {
+                type: 'column',
+
+            },
+            title: {
+                text: "Juttu"
+            },
+            subtitle: {
+                text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '
+            },
+            xAxis: {
+                categories: this.props.indicatorNames
+            },
+            yAxis: {
+                max: 1
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px"> {point.key} </span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.2f}</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: series
+    })
+}
 
     render () {
         const Url = "http://melatupa.azurewebsites.net";
@@ -279,7 +328,7 @@ class middleview extends Component {
                 .catch(function (error) {
                   console.log(error);
                 });
-
+                console.log(this.props.indicatorNames)
         return (
     
     <div className="col-md-6">
@@ -299,7 +348,7 @@ class middleview extends Component {
 </div>    
         <br/>
         <button type="button" className="btn btn-primary"
-        onClick = {this.test} >{localizedStrings.pillar}</button>   
+        onClick = {this.test4} >{localizedStrings.pillar}</button>   
         <button type="button" className="btn btn-primary"
         onClick = {this.test2} >Polar</button>   
         <button type="button" className="btn btn-primary"
