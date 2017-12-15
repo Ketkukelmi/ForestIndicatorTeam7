@@ -17,25 +17,29 @@ class App extends Component {
     super(props)
     this.state = {
       //Leftview states
+      //Values (Id)
       regionLevelValue: '',
       regionValue: '',
       scenarioCollectionValue: '',
       scenarioValue: '',
       timePeriodValue: '',
-      regionsId: 0,
-      scenarioCollectionId: 0,
+      //Datas
       regionLevelData: [],
       regionsData: [],
       scenarioCollectionData: [],
       scenariosData: [],
       timePeriodData: [],
       indicatorCategoriesData: [],
+      //Middle view states
+      seriesToSend: [],
       //Right view states
+      //Values (Id)
       woodProductionValue: [],
       biodiversityValue: [],
       naturalProductsValue: [],
       carbonValue: [],
       othersValue: [],
+      //Datas
       woodProductionData: [],
       biodiversityData: [],
       naturalProductsData: [],
@@ -72,7 +76,6 @@ class App extends Component {
   updateRegionLevelValue(newValue) {
     this.setState({
       regionLevelValue: newValue,
-      regionsId: newValue
     });
     console.log("newValue: " + newValue + " regionLevelValue: " + this.state.regionLevelValue + " regionsId: " + this.state.regionsId)
 
@@ -104,19 +107,18 @@ class App extends Component {
     });
     Data.getScenarioCollection(newValue, this.state.regionValue).then(result => {
       this.setState({
-        scenariosData: GlobalMethods.createDescriptionAsNameOptions(GlobalMethods.getScenarios(result)),
+        scenariosData: GlobalMethods.createOptions(GlobalMethods.getScenarios(result)),
         timePeriodData: GlobalMethods.createTimeOptions(GlobalMethods.getTimePeriods(result)),
-        indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
+        indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result),
+        valuesData: GlobalMethods.getAllValues(result)
       })
-      console.log(this.state.indicatorCategoriesData);
-      console.log(this.state.scenariosData);
-      console.log(this.state.timePeriodData);
+
+      console.log(this.state.valuesData);
     })
     this.setIndicators();
   }
 
   updateScenarioValue(newValue) {
-    console.log("New Value:  " + newValue)
     this.setState({
       scenarioValue: newValue,
     });
@@ -137,6 +139,7 @@ class App extends Component {
       woodProductionValue: newValue,
     });
     console.log("newValue: " + newValue + " woodProductionValue: " + this.state.woodProductionValue)
+    this.getValueByIndicators(newValue, 1)
   }
 
   updateBiodiversityValue(newValue) {
@@ -144,6 +147,8 @@ class App extends Component {
       biodiversityValue: newValue,
     });
     console.log("newValue: " + newValue + " biodiversityValue: " + this.state.biodiversityValue)
+    this.getValueByIndicators(newValue, 2)
+    
   }
 
   updateNaturalProductsValue(newValue) {
@@ -151,6 +156,8 @@ class App extends Component {
       naturalProductsValue: newValue,
     });
     console.log("newValue: " + newValue + " naturalProductsValue: " + this.state.naturalProductsValue)
+    this.getValueByIndicators(newValue, 3)
+    
   }
 
   updateCarbonValue(newValue) {
@@ -158,6 +165,8 @@ class App extends Component {
       carbonValue: newValue,
     });
     console.log("newValue: " + newValue + " carbonValue: " + this.state.carbonValue)
+    this.getValueByIndicators(newValue, 4)
+    
   }
 
   updateOthersValue(newValue) {
@@ -165,9 +174,11 @@ class App extends Component {
       othersValue: newValue,
     });
     console.log("newValue: " + newValue + " othersValue: " + this.state.othersValue)
+    this.getValueByIndicators(newValue, 5)
+    
   }
 
-  getIndicator(id){
+  getIndicator(id) {
     return GlobalMethods.createOptions(GlobalMethods.getIndicators(id, this.state.indicatorCategoriesData))
   }
   setIndicators() {
@@ -179,6 +190,7 @@ class App extends Component {
       othersData: this.getIndicator(5),
     })
   }
+
   toggleLanguage() {
     debugger;
     if (localizedStrings.getLanguage() == "fi") {
@@ -199,8 +211,64 @@ renewData(){
       })
       console.log(this.state.indicatorCategoriesData);
   })
-
 }
+
+  getValueByIndicators(values, id) {
+    let scenariosArray = this.state.scenarioValue.split(",")
+    let indicatorArray = values.split(",")
+    let timePeriod = this.state.timePeriodValue
+    //let lastValue = values.split(",")
+    let chosenValueSeries = []
+    let series = []
+    let indicatorNames = []
+    scenariosArray.forEach(scenario => {
+
+      let chosenValues = []
+      indicatorArray.forEach(indicator => {
+        //Save name to array -> give this to graph 
+        this.state.indicatorCategoriesData.forEach(indicatorData => {
+          if (indicatorData.value == indicator) {
+            indicatorNames.push(indicatorData.label)
+          }
+        })
+
+        this.state.valuesData.forEach(value => {
+          if (value.scenarioId == scenario) {
+            if (value.indicatorId == indicator) {
+              if (value.timePeriodId == timePeriod) {
+                chosenValues.push(value.value)
+              }
+            }
+          }
+        })
+      })
+      chosenValueSeries.push(chosenValues)
+    })
+
+    let i = 0
+    scenariosArray.forEach(scenario => {
+      let seriesObj = {
+        name: '',
+        data: 0,
+        id: 0
+      }
+      this.state.scenariosData.forEach(scenarioData => {
+        if (scenarioData.value == scenario) {
+          seriesObj.name = scenarioData.label
+        }
+      })
+      seriesObj.data = chosenValueSeries[i]
+      seriesObj.id = id
+      series.push({ seriesObj })
+      i++;
+    })
+
+    console.log(series)
+    this.setState({
+      seriesToSend: series
+    })
+  }
+
   render() {
     let leftViewProps = {
       //Values
@@ -209,9 +277,6 @@ renewData(){
       scenarioCollectionValue: this.state.scenarioCollectionValue,
       scenarioValue: this.state.scenarioValue,
       timePeriodValue: this.state.timePeriodValue,
-      //Ids
-      regionsId: this.state.regionsId,
-      scenarioCollectionId: this.state.scenarioCollectionId,
       //Datas
       regionLevelData: this.state.regionLevelData,
       regionsData: this.state.regionsData,
@@ -227,18 +292,7 @@ renewData(){
       updateTimePeriodValue: this.updateTimePeriodValue,
     }
     let middleViewProps = {
-      //Values
-      regionLevelValue: this.state.regionLevelValue,
-      regionValue: this.state.regionValue,
-      scenarioCollectionValue: this.state.scenarioCollectionValue,
-      scenarioValue: this.state.scenarioValue,
-      timePeriodValue: this.state.timePeriodValue,
-      woodProductionValue: this.state.woodProductionValue,
-      biodiversityValue: this.state.biodiversityValue,
-      naturalProductsValue: this.state.naturalProductsValue,
-      carbonValue: this.state.carbonValue,
-      othersValue: this.state.othersValue
-      
+      seriesToSend: this.state.seriesToSend
     }
     let rightViewProps = {
       //Values
@@ -269,7 +323,8 @@ renewData(){
 
           <LeftView {...leftViewProps} />
 
-          <Middleview {...middleViewProps}/>
+
+          <Middleview {...middleViewProps} />
 
           <Rightview  {...rightViewProps} />
 

@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import axios from 'axios';
 import Highcharts from 'highcharts';
-import HighchartsMore from 'highcharts/js/highcharts-more.js';
+import ReactHighcharts  from 'react-highcharts';
+  import HighchartsMore from 'highcharts/js/highcharts-more.js';
 import Heatmap from 'highcharts/modules/heatmap.js';
 import Export from 'highcharts/modules/exporting.js';
 import _ from 'lodash';
@@ -11,12 +12,11 @@ import App from '../App.js';
 import getScenarioCollection from '../data/Data';
 import GlobalMethods from '../data/GlobalMethods.js'
 import localizedStrings from '../data/Localization.js';
-HighchartsMore(Highcharts)        
-Heatmap(Highcharts)
-Export(Highcharts)
+HighchartsMore(ReactHighcharts.Highcharts)        
+Heatmap(ReactHighcharts.Highcharts)
+Export(ReactHighcharts.Highcharts)
 class middleview extends Component {
-         
-
+        
     test= () => {
         
         const testUrl = "http://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
@@ -29,18 +29,7 @@ class middleview extends Component {
             for (var categorycount = 0; categorycount < response.data[0].indicatorCategories.length; categorycount++) { 
                 catename.push(response.data[0].indicatorCategories[categorycount].name);
             }
-            /*var chartdata = [];
             
-            var seriesname = [];
-
-            var variable = [];
-            for (var seriescount = 0; seriescount < response.data[0].scenarios.length; seriescount++) { 
-                if (seriescount % 3 === 2) {
-                    console.log(seriescount);
-                }
-                seriesname.push({"name": response.data[0].scenarios[seriescount].description,"Id":response.data[0].scenarios[seriescount].id});
-            }
-            console.log(seriesname);*/
             
             const categories = response.data[0].indicatorCategories.map(function (item){
                 return {
@@ -61,11 +50,6 @@ class middleview extends Component {
                     Id: item.id
                 };
             });
-
-           /* for (var valuecount = 0; valuecount < response.data[0].values.length; valuecount++) {
-                chartdata.push({"value":response.data[0].values[valuecount].value, "Id": response.data[0].values[valuecount].scenarioId});
-            }*/
-            console.log(chart);
             
             const res = chart.map(x => Object.assign( seriesmap.find(y => y.Id === x.Id),x));
             console.log(res);
@@ -132,7 +116,8 @@ class middleview extends Component {
 series: []
 
         });
-        const tester = res.map((item,index )=>
+        options.series.data = this.props.seriesToSend;
+        /*const tester = res.map((item,index )=>
         options.series[item.Id]= 
         {
             description: item.description,
@@ -143,11 +128,8 @@ series: []
             const namevalue = test.description;
             delete test.description;
             {return namevalue}
-        });
-                    
-            console.log(seriesmap);
-            console.log(chart);            
-            console.log(group);          
+        });*/
+                             
             //console.log(variable);            
            // console.log(tester);
         console.log(options.series);        
@@ -305,38 +287,34 @@ series: []
 
 });
 
-
     }
 
     render () {
-        console.log(this.props.woodProductionValue + 
-            this.props.biodiversityValue +
-            this.props.naturalProductsValue +
-            this.props.carbonValue
-            )
-        const Url = "https://melatupa.azurewebsites.net";
+        const config = {
+            chart:{
+                type: "column"
+              },
+              xAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+              },
+              yAxis: {
+                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May']
+              },
+              series: []
+            };
+            config.series = this.props.seriesToSend[0];
+            console.log(config.series);
+            console.log(this.props.seriesToSend[0]);
+            return (
         
-                axios.get( Url + '/regionLevels')
-                .then(function (response) {
-                  
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-
-        return (
-    
     <div className="col-md-6">
     <div className="lightgreenBox">
         <h2 className="text-center">{localizedStrings.forestyCenter}</h2>
 
 <div className="row">
 
-<div id="test" className="col-md-12"> 
-    <figure className="text-left" >
-    test teskstti
-        <br/>
-    </figure>
+<div id="test" className="col-md-12">
+<ReactHighcharts config = {config}></ReactHighcharts>
 </div>
 
 </div>    

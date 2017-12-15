@@ -60,7 +60,8 @@ function getScenarios(scenarioData) {
           id: element.id,
           description: element.description,
           name: element.name,
-          order: element.order
+          order: element.order,
+          shortName: element.shortName
         }
     })
     return scenario;  
@@ -122,6 +123,23 @@ function getIndicators(id, indicatorCategory) {
   return indicators;
 }
 
+function getAllValues(valueData) {
+  if(typeof valueData != "undefined"){
+    var value = valueData["0"].values.map(element => {
+        return {
+          scenarioId: element.scenarioId,
+          indicatorId: element.indicatorId,
+          timePeriodId: element.timePeriodId,
+          value: element.value
+        }
+    })
+    return value;  
+  } else {
+    const value = []
+    return value;
+  }
+}
+
 function createOptions(array){
   let options = [];
   array.forEach(element => {
@@ -156,4 +174,16 @@ function createDescriptionAsNameOptions(array){
 }
 
 
-export default {createTimeOptions, createDescriptionAsNameOptions, getRegionLevels, getRegions, getScenarios, getTimePeriods, getScenarioCollection, getIndicators, createOptions, getIndicatorCategories}
+export default {
+  createTimeOptions, 
+  createDescriptionAsNameOptions, 
+  getRegionLevels, 
+  getRegions, 
+  getScenarios, 
+  getTimePeriods, 
+  getScenarioCollection, 
+  getIndicators, 
+  createOptions, 
+  getIndicatorCategories,
+  getAllValues
+}
