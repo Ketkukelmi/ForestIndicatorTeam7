@@ -1,8 +1,5 @@
-import Data from '../data/Data'
-import { debug } from 'util';
-
 function getRegionLevels(regionLevelData) {
-  if(typeof regionLevelData != "undefined") {
+  if(typeof regionLevelData !== "undefined") {
     const regionArray = regionLevelData.map(element => {
       return {
         id: element.id,
@@ -19,7 +16,7 @@ function getRegionLevels(regionLevelData) {
 }
 
 function getRegions(regionData) {  
-  if(typeof regionData != "undefined") {
+  if(typeof regionData !== "undefined") {
     const regionArray = regionData.map(element => {
         return {
           id: element.id,
@@ -54,7 +51,7 @@ function getScenarioCollection(regionData, id) {
 }
 
 function getScenarios(scenarioData) {
-  if(typeof scenarioData != "undefined"){
+  if(typeof scenarioData !== "undefined"){
     var scenario = scenarioData["0"].scenarios.map(element => {
         return {
           id: element.id,
@@ -97,13 +94,13 @@ function getIndicatorCategories(indicatorData) {
 }
 
 function getIndicators(id, indicatorCategory) {
-  if(typeof indicatorCategory != "undefined") {    
+  if(typeof indicatorCategory !== "undefined") {    
     indicatorCategory.forEach(element => {
       if(element.id === id) {
         indicatorCategory = element;
       } 
     });
-    if(typeof indicatorCategory.indicators != "undefined") {
+    if(typeof indicatorCategory.indicators !== "undefined") {
       var indicators = indicatorCategory.indicators.map(element => {
           return {
             id: element.id,
@@ -114,17 +111,17 @@ function getIndicators(id, indicatorCategory) {
           }
       })
     } else {
-      var indicators = []
+      indicators = []
     }
   }
   else {
-    var indicators = []
+    indicators = []
   }
   return indicators;
 }
 
 function getAllValues(valueData) {
-  if(typeof valueData != "undefined"){
+  if(typeof valueData !== "undefined"){
     var value = valueData["0"].values.map(element => {
         return {
           scenarioId: element.scenarioId,

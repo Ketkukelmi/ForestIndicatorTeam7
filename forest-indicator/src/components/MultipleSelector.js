@@ -19,7 +19,6 @@ class MultipleSelector extends Component {
     }
 
     handleSelectChange (value) {
-		console.log('You\'ve selected:', value);
 		this.setState({ value });
     }
     
@@ -28,7 +27,6 @@ class MultipleSelector extends Component {
       }
       handleChange = (selectedOption) => {
         this.setState({ selectedOption });
-        console.log(`Selected: ${selectedOption.label}`);
       }
 
       render () {

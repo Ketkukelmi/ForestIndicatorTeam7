@@ -278,9 +278,6 @@ class middleview extends Component {
             series.push({name: name, data: values})
         })
         
-        console.log("mame " + name + " values " + values)
-        const testUrl = "https://melatupa.azurewebsites.net/scenarioCollection/6/region/24";
-
         Highcharts.chart('test', {
             chart: {
                 type: 'column',
@@ -317,18 +314,6 @@ class middleview extends Component {
 }
 
     render () {
-        const Url = "http://melatupa.azurewebsites.net";
-
-        
-                axios.get( Url + '/regionLevels')
-                .then(function (response) {
-                  console.log(response);
-                  
-                })
-                .catch(function (error) {
-                  console.log(error);
-                });
-                console.log(this.props.indicatorNames)
         return (
     
     <div className="col-md-6">
