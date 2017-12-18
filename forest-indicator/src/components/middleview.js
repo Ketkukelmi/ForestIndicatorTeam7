@@ -287,7 +287,7 @@ class middleview extends Component {
 
             },
             title: {
-                text: "Juttu"
+                text: this.props.regionLevelName + ", " + this.props.regionName + ", " + this.props.scenarioCollectionName + ", " + this.props.timePeriodName
             },
             subtitle: {
                 text: 'Source: https://melatupa.azurewebsites.net/scenarioCollection/6/region/24  '

@@ -33,6 +33,10 @@ class App extends Component {
       //Middle view states
       seriesToSend: [],
       indicatorNames: [],
+      regionLevelName: '',
+      scenarioCollectionName: '',
+      regionName: '',
+      timePeriodName: '',
       //Right view states
       //Values (Id)
       woodProductionValue: [],
@@ -75,6 +79,13 @@ class App extends Component {
 
   //Left select update methods
   updateRegionLevelValue(newValue) {
+    this.state.regionLevelData.forEach(region => {
+      if(region.value == newValue){
+        this.setState({
+          regionLevelName: region.label
+        })
+      }
+    })
     this.setState({
       regionLevelValue: newValue,
     });
@@ -89,7 +100,13 @@ class App extends Component {
   }
 
   updateRegionValue(newValue) {
-    console.log(newValue + "")
+    this.state.regionsData.forEach(region => {
+      if(region.value == newValue){
+        this.setState({
+          regionName: region.label
+        })
+      }
+    })
     this.setState({
       regionValue: newValue,
     });
@@ -102,6 +119,13 @@ class App extends Component {
   }
 
   updateScenarioCollectionValue(newValue) {
+    this.state.scenarioCollectionData.forEach(scenarioCollection => {
+      if(scenarioCollection.value == newValue){
+        this.setState({
+          scenarioCollectionName: scenarioCollection.label
+        })
+      }
+    })
     console.log(newValue + "")
     this.setState({
       scenarioCollectionValue: newValue,
@@ -127,6 +151,13 @@ class App extends Component {
   }
 
   updateTimePeriodValue(newValue) {
+    this.state.timePeriodData.forEach(time => {
+      if(time.value == newValue){
+        this.setState({
+          timePeriodName: time.label
+        })
+      }
+    })
     console.log("New Value:  " + newValue)
     this.setState({
       timePeriodValue: newValue,
@@ -218,7 +249,6 @@ renewData(){
     let scenariosArray = this.state.scenarioValue.split(",")
     let indicatorArray = values.split(",")
     let timePeriod = this.state.timePeriodValue
-    //let lastValue = values.split(",")
     let chosenValueSeries = []
     let series = []
     let indicatorNamesArray = []
@@ -325,7 +355,12 @@ renewData(){
 
           <LeftView {...leftViewProps} />
 
-          <Middleview values={this.state.seriesToSend} indicatorNames={this.state.indicatorNames} />
+          <Middleview values={this.state.seriesToSend} 
+                      indicatorNames={this.state.indicatorNames}
+                      regionLevelName = {this.state.regionLevelName} 
+                      regionName = {this.state.regionName}
+                      scenarioCollectionName = {this.state.scenarioCollectionName}
+                      timePeriodName = {this.state.timePeriodName}/>
 
           <Rightview  {...rightViewProps} />
 
