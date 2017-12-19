@@ -41,8 +41,8 @@ class middleview extends Component {
             name = value.seriesObj.name,
             values = value.seriesObj.data
             series.push({name: name, data: values})
-        })
-        
+        });
+
         return (
     
     <div className="col-md-6">
