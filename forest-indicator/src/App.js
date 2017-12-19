@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
 import LeftView from './components/leftview.js';
 import Middleview from './components/middleview.js';
+import chart from './components/middleview.js';
 import Rightview from './components/rightview.js';
 import GlobalMethods from './data/GlobalMethods.js'
 import Data from './data/Data'
@@ -12,7 +13,6 @@ import {changeLang, getScenarioCollection} from './data/Data'
 import localizedStrings from './data/Localization.js'
 
 class App extends Component {
-
   constructor(props) {
     super(props)
     this.state = {
@@ -61,7 +61,6 @@ class App extends Component {
     this.updateNaturalProductsValue = this.updateNaturalProductsValue.bind(this);
     this.updateOthersValue = this.updateOthersValue.bind(this);
     this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);
-
     this.toggleLanguage = this.toggleLanguage.bind(this);
     this.renewData = this.renewData.bind(this);
     
@@ -119,13 +118,11 @@ class App extends Component {
     this.setIndicators();
   }
 
-
-
   updateScenarioValue(newValue) {
     this.setState({
       scenarioValue: newValue,
     });
-    console.log("Value: " + this.state.scenarioValue)
+
   }
 
   updateTimePeriodValue(newValue) {
@@ -328,7 +325,12 @@ renewData(){
           <LeftView {...leftViewProps} />
 
 
-          <Middleview values={this.state.seriesToSend} update={this.state.scenarioValue} indicatorNames={this.state.indicatorNames} />
+          <Middleview values={this.state.seriesToSend} 
+                      indicatorNames={this.state.indicatorNames}
+                      regionLevelName = {this.state.regionLevelName} 
+                      regionName = {this.state.regionName}
+                      scenarioCollectionName = {this.state.scenarioCollectionName}
+                      timePeriodName = {this.state.timePeriodName}/>
 
           <Rightview  {...rightViewProps} />
 
