@@ -22,6 +22,9 @@ class middleview extends Component {
             chart:{
                 type: "column"
               },
+              title: {
+                text: this.props.regionLevelName + ", " + this.props.regionName + ", " + this.props.scenarioCollectionName + ", " + this.props.timePeriodName
+            },
               xAxis: {
                 categories: this.props.indicatorNames
               },
@@ -37,12 +40,9 @@ class middleview extends Component {
             let values = []
             name = value.seriesObj.name,
             values = value.seriesObj.data
-            const seriesData = {
-                name: name, data: values
-            }
-            series.push(seriesData);
-            });
-            
+            series.push({name: name, data: values})
+        })
+        
         return (
     
     <div className="col-md-6">

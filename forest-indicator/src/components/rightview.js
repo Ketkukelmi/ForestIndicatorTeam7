@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
-import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import MultipleSelector from './MultipleSelector';
-import GlobalMethods from '../data/GlobalMethods.js'
 import FeedbackPopup from './FeedbackPopup.js';
-import Data from '../data/Data.js'
 import localizedStrings from '../data/Localization.js'
 import '../App.css';
 

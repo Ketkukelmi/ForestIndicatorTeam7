@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Header from './components/header.js';
@@ -33,6 +32,11 @@ class App extends Component {
       //Middle view states
       seriesToSend: [],
       indicatorNames: [],
+      selectedIndicatorValues: [],
+      regionLevelName: '',
+      scenarioCollectionName: '',
+      regionName: '',
+      timePeriodName: '',
       //Right view states
       //Values (Id)
       woodProductionValue: [],
@@ -48,7 +52,7 @@ class App extends Component {
       othersData: [],
       
       language : false,
-      indicatorCategoriesData: []
+      indicatorsFetched: false
     }
 
     this.updateRegionLevelValue = this.updateRegionLevelValue.bind(this);
@@ -56,39 +60,48 @@ class App extends Component {
     this.updateScenarioCollectionValue = this.updateScenarioCollectionValue.bind(this);
     this.updateScenarioValue = this.updateScenarioValue.bind(this);
     this.updateTimePeriodValue = this.updateTimePeriodValue.bind(this);
-    this.updateBiodiversityValue = this.updateBiodiversityValue.bind(this);
-    this.updateCarbonValue = this.updateCarbonValue.bind(this);
-    this.updateNaturalProductsValue = this.updateNaturalProductsValue.bind(this);
-    this.updateOthersValue = this.updateOthersValue.bind(this);
-    this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);
+    this.updateIndicators = this.updateIndicators.bind(this);
+
     this.toggleLanguage = this.toggleLanguage.bind(this);
     this.renewData = this.renewData.bind(this);
-    
+    this.getRegionLevels();
+
+  }
+  getRegionLevels(){
     Data.getRegionLevels().then(result => {
       this.setState({
         regionLevelData: GlobalMethods.createOptions(GlobalMethods.getRegionLevels(result))
       })
-      console.log(this.state.regionLevelData);
     })
   }
-
   //Left select update methods
   updateRegionLevelValue(newValue) {
+    this.state.regionLevelData.forEach(region => {
+      if(region.value === newValue){
+        this.setState({
+          regionLevelName: region.label
+        })
+      }
+    })
     this.setState({
       regionLevelValue: newValue,
     });
-    console.log("newValue: " + newValue + " regionLevelValue: " + this.state.regionLevelValue + " regionsId: " + this.state.regionsId)
 
     Data.getRegionswithId(newValue).then(result => {
       this.setState({
         regionsData: GlobalMethods.createOptions(GlobalMethods.getRegions(result))
       })
-      console.log(this.state.regionsData);
     })
   }
 
   updateRegionValue(newValue) {
-    console.log(newValue + "")
+    this.state.regionsData.forEach(region => {
+      if(region.value === newValue){
+        this.setState({
+          regionName: region.label
+        })
+      }
+    })
     this.setState({
       regionValue: newValue,
     });
@@ -96,12 +109,17 @@ class App extends Component {
       this.setState({
         scenarioCollectionData: GlobalMethods.createOptions(GlobalMethods.getScenarioCollection(result, newValue))
       })
-      console.log(this.state.scenarioCollectionData);
     })
   }
 
   updateScenarioCollectionValue(newValue) {
-    console.log(newValue + "")
+    this.state.scenarioCollectionData.forEach(scenarioCollection => {
+      if(scenarioCollection.value === newValue){
+        this.setState({
+          scenarioCollectionName: scenarioCollection.label
+        })
+      }
+    })
     this.setState({
       scenarioCollectionValue: newValue,
     });
@@ -112,8 +130,6 @@ class App extends Component {
         indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result),
         valuesData: GlobalMethods.getAllValues(result)
       })
-
-      console.log(this.state.valuesData);
     })
     this.setIndicators();
   }
@@ -122,60 +138,29 @@ class App extends Component {
     this.setState({
       scenarioValue: newValue,
     });
-
+    if(this.state.indicatorsFetched) {
+      this.getValueByIndicators(this.state.selectedIndicatorValues, newValue)
+    }
   }
 
   updateTimePeriodValue(newValue) {
-    console.log("New Value:  " + newValue)
+    this.state.timePeriodData.forEach(time => {
+      if(time.value === newValue){
+        this.setState({
+          timePeriodName: time.label
+        })
+      }
+    })
     this.setState({
       timePeriodValue: newValue,
     });
-    console.log("Value: " + this.state.timePeriodValue)
   }
 
-  //Right select update methods
-  updateWoodProductionValue(newValue) {
+  updateIndicators(newValue) {
     this.setState({
-      woodProductionValue: newValue,
+      selectedIndicatorValues: newValue,
     });
-    console.log("newValue: " + newValue + " woodProductionValue: " + this.state.woodProductionValue)
-    this.getValueByIndicators(newValue, 1)
-  }
-
-  updateBiodiversityValue(newValue) {
-    this.setState({
-      biodiversityValue: newValue,
-    });
-    console.log("newValue: " + newValue + " biodiversityValue: " + this.state.biodiversityValue)
-    this.getValueByIndicators(newValue, 2)
-    
-  }
-
-  updateNaturalProductsValue(newValue) {
-    this.setState({
-      naturalProductsValue: newValue,
-    });
-    console.log("newValue: " + newValue + " naturalProductsValue: " + this.state.naturalProductsValue)
-    this.getValueByIndicators(newValue, 3)
-    
-  }
-
-  updateCarbonValue(newValue) {
-    this.setState({
-      carbonValue: newValue,
-    });
-    console.log("newValue: " + newValue + " carbonValue: " + this.state.carbonValue)
-    this.getValueByIndicators(newValue, 4)
-    
-  }
-
-  updateOthersValue(newValue) {
-    this.setState({
-      othersValue: newValue,
-    });
-    console.log("newValue: " + newValue + " othersValue: " + this.state.othersValue)
-    this.getValueByIndicators(newValue, 5)
-    
+    this.getValueByIndicators(newValue, this.state.scenarioValue)
   }
 
   getIndicator(id) {
@@ -193,7 +178,7 @@ class App extends Component {
 
   toggleLanguage() {
     debugger;
-    if (localizedStrings.getLanguage() == "fi") {
+    if (localizedStrings.getLanguage() === "fi") {
       localizedStrings.setLanguage("en");
       
       
@@ -205,71 +190,67 @@ class App extends Component {
 }
 renewData(){
   changeLang(localizedStrings.getLanguage());
-  getScenarioCollection(6, 24).then(result => {
-      this.setState({
-          indicatorCategoriesData: GlobalMethods.getIndicatorCategories(result)
-      })
-      console.log(this.state.indicatorCategoriesData);
-  })
+  this.getRegionLevels();
 }
 
-  getValueByIndicators(values, id) {
-    let scenariosArray = this.state.scenarioValue.split(",")
-    let indicatorArray = values.split(",")
-    let timePeriod = this.state.timePeriodValue
-    //let lastValue = values.split(",")
-    let chosenValueSeries = []
-    let series = []
-    let indicatorNamesArray = []
-    scenariosArray.forEach(scenario => {
+  getValueByIndicators(values, scenarioValues) {
+    
+    if(values.length !== 0) {
+      let scenariosArray = scenarioValues.split(",")
+      let indicatorArray = values.split(",")
+      let timePeriod = this.state.timePeriodValue
+      let chosenValueSeries = []
+      let series = []
+      let indicatorNamesArray = []
+      scenariosArray.forEach(scenario => {
 
-      let chosenValues = []
-      indicatorArray.forEach(indicator => {
-        //Save name to array -> give this to graph 
-        this.state.indicatorCategoriesData.forEach(indicatorData => {
-          indicatorData.indicators.forEach(indicatorForName=>{
-            if (indicatorForName.id == indicator) {
-              indicatorNamesArray.push(indicatorForName.name)
+        let chosenValues = []
+        indicatorArray.forEach(indicator => {
+          //Save name to array -> give this to graph 
+          this.state.indicatorCategoriesData.forEach(indicatorData => {
+            indicatorData.indicators.forEach(indicatorForName=>{
+              if (indicatorForName.id == indicator) {
+                indicatorNamesArray.push(indicatorForName.name)
+              }
+            })
+          })
+
+          this.state.valuesData.forEach(value => {
+            if (value.scenarioId == scenario) {
+              if (value.indicatorId == indicator) {
+                if (value.timePeriodId == timePeriod) {
+                  chosenValues.push(value.value)
+                }
+              }
             }
           })
         })
+        chosenValueSeries.push(chosenValues)
+      })
 
-        this.state.valuesData.forEach(value => {
-          if (value.scenarioId == scenario) {
-            if (value.indicatorId == indicator) {
-              if (value.timePeriodId == timePeriod) {
-                chosenValues.push(value.value)
-              }
-            }
+      let i = 0
+      scenariosArray.forEach(scenario => {
+        let seriesObj = {
+          name: '',
+          data: 0,
+          id: 0
+        }
+        this.state.scenariosData.forEach(scenarioData => {
+          if (scenarioData.value == scenario) {
+            seriesObj.name = scenarioData.label
           }
         })
+        seriesObj.data = chosenValueSeries[i]
+        series.push({ seriesObj })
+        i++;
       })
-      chosenValueSeries.push(chosenValues)
-    })
 
-    let i = 0
-    scenariosArray.forEach(scenario => {
-      let seriesObj = {
-        name: '',
-        data: 0,
-        id: 0
-      }
-      this.state.scenariosData.forEach(scenarioData => {
-        if (scenarioData.value == scenario) {
-          seriesObj.name = scenarioData.label
-        }
+      this.setState({
+        seriesToSend: series,
+        indicatorNames: indicatorNamesArray,
+        indicatorsFetched: true
       })
-      seriesObj.data = chosenValueSeries[i]
-      seriesObj.id = id
-      series.push({ seriesObj })
-      i++;
-    })
-
-    console.log(series)
-    this.setState({
-      seriesToSend: series,
-      indicatorNames: indicatorNamesArray
-    })
+    }
   }
 
   render() {
@@ -297,11 +278,11 @@ renewData(){
 
     let rightViewProps = {
       //Values
-      woodProductionValue: this.state.woodProductionValue,
-      biodiversityValue: this.state.biodiversityValue,
-      naturalProductsValue: this.state.naturalProductsValue,
-      carbonValue: this.state.carbonValue,
-      othersValue: this.state.othersValue,
+      woodProductionValue: this.state.selectedIndicatorValues,
+      biodiversityValue: this.state.selectedIndicatorValues,
+      naturalProductsValue: this.state.selectedIndicatorValues,
+      carbonValue: this.state.selectedIndicatorValues,
+      othersValue: this.state.selectedIndicatorValues,
       //Datas
       woodProductionData: this.getIndicator(1),
       biodiversityData: this.getIndicator(2),
@@ -309,11 +290,11 @@ renewData(){
       carbonData: this.getIndicator(4),
       othersData: this.getIndicator(5),
       //Updaters
-      updateWoodProductionValue: this.updateWoodProductionValue,
-      updateBiodiversityValue: this.updateBiodiversityValue,
-      updateNaturalProductsValue: this.updateNaturalProductsValue,
-      updateCarbonValue: this.updateCarbonValue,
-      updateOthersValue: this.updateOthersValue
+      updateWoodProductionValue: this.updateIndicators,
+      updateBiodiversityValue: this.updateIndicators,
+      updateNaturalProductsValue: this.updateIndicators,
+      updateCarbonValue: this.updateIndicators,
+      updateOthersValue: this.updateIndicators
     }
     return (
       <div className="container">
@@ -323,7 +304,6 @@ renewData(){
         <div className="row">
 
           <LeftView {...leftViewProps} />
-
 
           <Middleview values={this.state.seriesToSend} 
                       indicatorNames={this.state.indicatorNames}
