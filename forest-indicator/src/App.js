@@ -61,11 +61,6 @@ class App extends Component {
     this.updateScenarioValue = this.updateScenarioValue.bind(this);
     this.updateTimePeriodValue = this.updateTimePeriodValue.bind(this);
     this.updateIndicators = this.updateIndicators.bind(this);
-    /*this.updateBiodiversityValue = this.updateBiodiversityValue.bind(this);
-    this.updateCarbonValue = this.updateCarbonValue.bind(this);
-    this.updateNaturalProductsValue = this.updateNaturalProductsValue.bind(this);
-    this.updateOthersValue = this.updateOthersValue.bind(this);
-    this.updateWoodProductionValue = this.updateWoodProductionValue.bind(this);*/
 
     this.toggleLanguage = this.toggleLanguage.bind(this);
     this.renewData = this.renewData.bind(this);
