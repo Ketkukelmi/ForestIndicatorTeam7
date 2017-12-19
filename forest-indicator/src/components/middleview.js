@@ -23,7 +23,7 @@ class middleview extends Component {
                 type: "column"
               },
               title: {
-                text: this.props.regionLevelName + ", " + this.props.regionName + ", " + this.props.scenarioCollectionName + ", " + this.props.timePeriodName
+                text: this.props.regionLevelName + " " + this.props.regionName + " " + this.props.scenarioCollectionName + " " + this.props.timePeriodName
             },
               xAxis: {
                 categories: this.props.indicatorNames

@@ -26,7 +26,7 @@ class rightwing extends Component {
     render() {
         return (
             <div>
-            <div class="col-md-3 greenBox">
+            <div className="col-md-3 greenBox">
                 <MultipleSelector 
                     choices={this.props.woodProductionData} 
                     title={localizedStrings.woodProduction}

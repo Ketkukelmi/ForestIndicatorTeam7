@@ -10,7 +10,7 @@ class LeftView extends Component {
   render() {
 
     return (
-      <div class="col-md-3 greenBox">
+      <div className="col-md-3 greenBox">
         <h4>{localizedStrings.chooce}</h4>
         <SimpleDropDown 
           options={this.props.regionLevelData}
